@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoho Customer Portfolio Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav-bar">
+        <button class="tab-button active" data-tab="dashboard">Intelligence Dashboard</button>
+        <button class="tab-button" data-tab="merchant360">Account 360</button>
+        <button class="tab-button" data-tab="qbrdeck">EBR Deck</button>
+    </div>
+
+    <div id="dashboard-content" class="widget-container">
+        <div class="header-row">
+            <div class="header-left">
+                <img src="img/zoho.png" alt="zoho Logo" width="100" height="40">
+                <span class="app-title">&nbsp;Portfolio Intelligence</span>
+                <button class="refresh-btn" onclick="handleRefresh(event)">
+                    <svg class="refresh-icon" viewBox="0 0 24 24">
+                        <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="header-right">
+                <div class="search-container global-search">
+                    <input type="text" class="search-input" placeholder="Search customers, ID...">
+                    <span class="search-icon">&#128269;</span>
+                </div>
+
+                <div class="user-profile-toggle" id="userProfileToggle">
+                    <div class="user-avatar" id="currentUserAvatar">LG</div>
+                    <span class="user-name" id="currentUserName">Logan</span>
+                    <span class="user-dropdown-arrow">&#9660;</span>
+                </div>
+                <div class="user-dropdown-menu" id="userDropdownMenu">
+                    <ul>
+                        <li data-name="Logan" data-initials="LG" class="selected">Logan</li>
+                        <li data-name="Alice" data-initials="AS">Alice</li>
+                        <li data-name="Bob" data-initials="BP">Bob</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="filters-toolbar">
+            <select class="filter-select" id="globalRegionFilter">
+                <option value="all">All Regions</option>
+                <option value="APAC">APAC</option>
+                <option value="ANZ">ANZ</option>
+                <option value="LATAM">LATAM</option>
+                <option value="INDIA">INDIA</option>
+                <option value="UK">UK</option>
+                <option value="US">US</option>
+            </select>
+
+            <select class="filter-select" id="buHeadFilter">
+                <option value="all">All BU Heads</option>
+                <option value="hr">HR</option>
+                <option value="marketing">Marketing</option>
+                <option value="finance">Finance</option>
+                <option value="it">IT / Ops</option>
+            </select>
+
+            <select class="filter-select">
+                <option value="">All Services</option>
+                <option value="implementation">Implementation</option>
+                <option value="managed">Managed Services</option>
+                <option value="consulting">Consulting</option>
+                <option value="license">License Only</option>
+            </select>
+
+            <select class="filter-select">
+                <option value="">All Segments</option>
+                <option value="retail">Retail</option>
+                <option value="smb">Mid Market</option>
+                <option value="enterprise">Enterprise</option>
+            </select>
+
+            <select class="filter-select">
+                <option value="">All Industries</option>
+                <option value="tech">Technology</option>
+                <option value="finance">Finance</option>
+                <option value="education">Education</option>
+                <option value="healthcare">Healthcare</option>
+            </select>
+            
+            <div class="filter-capsule" id="filterArrCapsule">
+                <span id="arrLessThan5k" class="arr-filter-part">&lt; $5K</span>
+                <span class="separator-bar">|</span>
+                <span id="arrGreaterThan5k" class="arr-filter-part">&gt; $5K</span>
+            </div>
+        </div>
+
+        <h2 class="section-title">Overview</h2>
+        <div class="info-bar">
+            <span>5000 Customers</span>
+            <span class="separator"></span>
+            <span>Last updated : Today, 10:15 AM</span>
+        </div>
+
+        <div class="account-summary-strip">
+            
+            <div class="summary-card total extended-card">
+                <div class="summary-main-row">
+                    <div class="summary-icon-container blue">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <div class="summary-text-content">
+                        <span class="summary-label">Total Accounts</span>
+                        <span class="summary-value" id="summaryTotalAccounts">5,000</span>
+                        <span class="summary-subtext">Portfolio Value: <span id="summaryTotalValue">$52.0M</span></span>
+                    </div>
+                </div>
+                <div class="churn-impact-section">
+                    <div class="impact-row">
+                        <span class="impact-label">New:</span>
+                        <span class="impact-value text-green">+120</span>
+                    </div>
+                    <div class="impact-row">
+                        <span class="impact-label">Growth:</span>
+                        <span class="impact-value text-green">+2.4%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-card active extended-card">
+                <div class="summary-main-row">
+                    <div class="summary-icon-container green">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </div>
+                    <div class="summary-text-content">
+                        <span class="summary-label">Active Accounts</span>
+                        <span class="summary-value" id="summaryActiveAccounts">4,650</span>
+                        <span class="summary-subtext success">Revenue: <span id="summaryActiveRevenue">$48.5M</span></span>
+                    </div>
+                </div>
+                <div class="churn-impact-section">
+                    <div class="impact-row">
+                        <span class="impact-label">Retention:</span>
+                        <span class="impact-value text-green">98%</span>
+                    </div>
+                    <div class="impact-row">
+                        <span class="impact-label">Upsell:</span>
+                        <span class="impact-value text-green">$450K</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-card warning extended-card">
+                <div class="summary-main-row">
+                    <div class="summary-icon-container yellow">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                    </div>
+                    <div class="summary-text-content">
+                        <span class="summary-label">Warning Stage</span>
+                        <span class="summary-value" id="summaryWarningAccounts">280</span>
+                        <span class="summary-subtext warning">Risk: <span id="summaryWarningRisk">$2.4M</span></span>
+                    </div>
+                </div>
+                <div class="churn-impact-section">
+                    <div class="impact-row">
+                        <span class="impact-label">Churned:</span>
+                        <span class="impact-value text-red" id="warningChurnCount">12</span>
+                    </div>
+                    <div class="impact-row">
+                        <span class="impact-label">Lost:</span>
+                        <span class="impact-value text-red" id="warningLostRevenue">$180K</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-card critical extended-card">
+                <div class="summary-main-row">
+                    <div class="summary-icon-container red">
+                        <i class="bi bi-x-octagon-fill"></i>
+                    </div>
+                    <div class="summary-text-content">
+                        <span class="summary-label">Critical Stage</span>
+                        <span class="summary-value" id="summaryCriticalAccounts">70</span>
+                        <span class="summary-subtext danger">Risk: <span id="summaryCriticalRisk">$850K</span></span>
+                    </div>
+                </div>
+                <div class="churn-impact-section">
+                    <div class="impact-row">
+                        <span class="impact-label">Churned:</span>
+                        <span class="impact-value text-red" id="criticalChurnCount">8</span>
+                    </div>
+                    <div class="impact-row">
+                        <span class="impact-label">Lost:</span>
+                        <span class="impact-value text-red" id="criticalLostRevenue">$420K</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reactivation-section">
+            <div class="reactivation-header">
+                <h3><img src="img/Inactive Account Recovery1 Background Removed.png" alt="Recovery Icon" class="section-title-icon"> Inactive Account Recovery</h3>
+                <div class="header-badges">
+                    <span class="count-badge">
+                        <i class="bi bi-person-x-fill"></i> <span id="totalInactiveCount">350</span> Inactive Subs
+                    </span>
+                    <span class="potential-badge">Potential Revenue Recovery: $660K</span>
+                </div>
+            </div>
+            
+            <div class="reactivation-container">
+                <div class="reactivation-segments">
+                    <div class="segment-card high-priority">
+                        <div class="segment-info">
+                            <span class="segment-title">Dormant (Paying)</span>
+                            <span class="segment-desc">Paying but 0 logins > 30 days</span>
+                        </div>
+                        <div class="segment-stats">
+                            <span class="count">80</span>
+                            <span class="value">$450K ARR</span>
+                        </div>
+                        <button class="segment-action-btn" id="openWakeUpModalBtn">Trigger "Wake Up" Email</button>
+                    </div>
+
+                    <div class="segment-card medium-priority">
+                        <div class="segment-info">
+                            <span class="segment-title">Usage Gap</span>
+                            <span class="segment-desc">Underutilized vs Industry Avg</span>
+                        </div>
+                        <div class="segment-stats">
+                            <span class="count">45</span>
+                            <span class="value">$180K Upsell</span>
+                        </div>
+                        <button class="segment-action-btn secondary" id="openGapAnalysisBtn">View Missing Features</button>
+                    </div>
+
+                    <div class="segment-card low-priority">
+                        <div class="segment-info">
+                            <span class="segment-title">Stalled Trials</span>
+                            <span class="segment-desc">Signed up, 0 activity in 14 days</span>
+                        </div>
+                        <div class="segment-stats">
+                            <span class="count">120</span>
+                            <span class="value">$60K Pipeline</span>
+                        </div>
+                        <button class="segment-action-btn secondary" onclick="alert('Trial Extension Offer Sent!')">Offer Trial Extension</button>
+                    </div>
+                </div>
+
+                <div class="reactivation-list-wrapper">
+                    <h4>Top 3 "Win-Back" Opportunities</h4>
+                    <table class="reactivation-table">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Inactive For</th>
+                                <th>Last Known Health</th>
+                                <th>Recommended Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="customer-info-mini">
+                                        <div class="avatar-mini" style="background: #673ab7;">NW</div>
+                                        <span>NorthWind Traders</span>
+                                    </div>
+                                </td>
+                                <td>32 Days</td>
+                                <td><span class="health-dot green"></span> Good (Previously)</td>
+                                <td><a href="#" class="action-link-btn">Schedule Health Check</a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="customer-info-mini">
+                                        <div class="avatar-mini" style="background: #009688;">CL</div>
+                                        <span>Contoso Ltd</span>
+                                    </div>
+                                </td>
+                                <td>45 Days</td>
+                                <td><span class="health-dot yellow"></span> Average</td>
+                                <td><a href="#" class="action-link-btn">Send "New Feature" Demo</a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="customer-info-mini">
+                                        <div class="avatar-mini" style="background: #795548;">Fab</div>
+                                        <span>Fabrikam Inc</span>
+                                    </div>
+                                </td>
+                                <td>60 Days</td>
+                                <td><span class="health-dot red"></span> Poor</td>
+                                <td><a href="#" class="action-link-btn">Offer 20% Discount</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="cards-container">
+            <div class="card slide-up">
+                <span class="card-percentage-change">+12.4%</span>
+                <div class="card-title text-black"><STRONG>Total ARR (MTD)</STRONG></div>
+                <div class="card-value">$42.8M</div>
+                <div class="card-comparison">vs $38.1M last month</div>
+                <div class="primary-progress-bar-container">
+                    <div class="primary-progress-bar-fill" style="width: 85%;"></div>
+                </div>
+                <div class="progress-details">
+                    <span>Target : $50M</span>
+                    <span class="achieved">85% achieved</span>
+                </div>
+                <div class="secondary-progress-bar-container">
+                    <div class="secondary-progress-bar-fill" style="width: 92%;"></div>
+                </div>
+                <div class="secondary-progress-details">
+                    <span class="inactive-info">Active Accounts: 46 of 50</span>
+                    <span class="active-percentage-info">92% active</span>
+                </div>
+            </div>
+
+            <div class="card slide-up">
+                <div class="card-header-with-filter">
+                    <div class="card-title text-black"> <strong>Upsell & Cross-sell</strong></div>
+                    <select class="card-filter-select" id="upsellCrossSellFilter">
+                        <option value="month"> Month &nbsp;</option>
+                        <option value="quarter">Quarter &nbsp;</option>
+                        <option value="year">Year &nbsp;</option>
+                    </select>
+                </div>
+                <div class="upsell-cross-sell-card-content">
+                    <div class="upsell-cross-sell-section">
+                        <h4>Upsell</h4>
+                        <div class="upsell-cross-sell-stats">
+                            <div class="upsell-cross-sell-stat-item">
+                                <span class="upsell-cross-sell-stat-value" id="upsellAccounts">25</span>
+                                <span class="upsell-cross-sell-stat-label">Active Accounts</span>
+                            </div>
+                            <div class="upsell-cross-sell-stat-item">
+                                <span class="upsell-cross-sell-stat-value revenue" id="upsellRevenue">$1.5M</span>
+                                <span class="upsell-cross-sell-stat-label">Revenue Generated</span>
+                            </div>
+                        </div>
+                        <div class="upsell-cross-sell-chart-container">
+                            <canvas id="upsellChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="upsell-cross-sell-separator"></div>
+                    <div class="upsell-cross-sell-section">
+                        <h4>Cross-sell</h4>
+                        <div class="upsell-cross-sell-stats">
+                            <div class="upsell-cross-sell-stat-item">
+                                <span class="upsell-cross-sell-stat-value" id="crossSellAccounts">18</span>
+                                <span class="upsell-cross-sell-stat-label">Active Accounts</span>
+                            </div>
+                            <div class="upsell-cross-sell-stat-item">
+                                <span class="upsell-cross-sell-stat-value revenue" id="crossSellRevenue">$0.8M</span>
+                                <span class="upsell-cross-sell-stat-label">Revenue Generated</span>
+                            </div>
+                        </div>
+                        <div class="upsell-cross-sell-chart-container">
+                            <canvas id="crossSellChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card pa-wrapper-card slide-up">
+                <div class="pa-widget-container">
+                    <div class="pa-header-row">
+                        <span class="pa-app-title">Product Adoption</span>
+                        <div class="pa-filter-group">
+                            <select id="pa-region-filter" class="pa-filter-select">
+                                <option value="All">Global</option>
+                                <option value="NA">North America</option>
+                                <option value="EU">Europe</option>
+                                <option value="APAC">APAC</option>
+                            </select>
+                            <select id="pa-industry-filter" class="pa-filter-select" style="display:none;">
+                                <option value="All">All Ind.</option>
+                                <option value="Tech">Tech</option>
+                                <option value="Retail">Retail</option>
+                                <option value="Healthcare">Health</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="pa-content-area">
+                        <button id="pa-prev-btn" class="pa-nav-btn prev" disabled>&lt;</button>
+                        <button id="pa-next-btn" class="pa-nav-btn next">&gt;</button>
+                    
+                        <div id="pa-insight-section" class="pa-insight-section">
+                            <div id="pa-trial-card-container" class="pa-card-container"></div>
+                            <div id="pa-paid-card-container" class="pa-card-container" style="display:none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card portfolio-health-apple slide-up">
+                <div class="widget-header">
+                    <div class="header-title-group">
+                        <div class="card-title text-black" style="margin:0;"><strong>Portfolio Health</strong></div>
+                        <div class="info-tooltip-wrapper">
+                            <button class="info-button" aria-label="View health criteria">
+                                <i class="bi bi-info-circle"></i>
+                            </button>
+                            <div class="tooltip-criteria">
+                                <h4 class="tooltip-title">Health Criteria</h4>
+                                <ul class="tooltip-list">
+                                    <li><span>Healthy</span><span class="criteria-healthy-color">&gt; 80</span></li>
+                                    <li><span>At Risk</span><span class="criteria-at-risk-color">60 - 79</span></li>
+                                    <li><span>High Risk</span><span class="criteria-high-risk-color">30 - 59</span></li>
+                                    <li><span>Critical</span><span class="criteria-critical-color">&lt; 29</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="main-status" class="status-pill status-healthy">Healthy</div>
+                </div>
+            
+                <div class="score-block">
+                    <div class="score-circle-container">
+                        <svg class="progress-ring" width="140" height="140" viewBox="0 0 140 140">
+                            <circle class="progress-ring__bg" stroke="#f3f4f6" stroke-width="12" fill="transparent" r="60" cx="70" cy="70"/>
+                            <circle class="progress-ring__circle" id="health-ring-circle" stroke="currentColor" stroke-width="12" fill="transparent" r="60" cx="70" cy="70"/>
+                        </svg>
+                        
+                        <div class="score-text-overlay">
+                            <span id="health-score-display" class="score-value">84</span>
+                            <span class="score-label-small">INDEX</span>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="progress-section">
+                    <div class="layered-health-bar-container">
+                        <div id="segment-healthy" class="bar-segment segment-healthy" style="width: 40%"></div>
+                        <div id="segment-at-risk" class="bar-segment segment-at-risk" style="width: 30%"></div>
+                        <div id="segment-high-risk" class="bar-segment segment-high-risk" style="width: 20%"></div>
+                        <div id="segment-critical" class="bar-segment segment-critical" style="width: 10%"></div>
+                    </div>
+                </div>
+            
+                <div class="breakdown-list">
+                    <div class="breakdown-item">
+                        <div class="item-label-group">
+                            <span class="color-dot" style="background-color: #34c759;"></span>
+                            <span class="item-label">Healthy</span>
+                        </div>
+                        <div class="item-value">
+                            <span id="healthy-count" class="count-text text-healthy">200</span>
+                            <span id="healthy-percent" class="percent-text">(40%)</span>
+                        </div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="item-label-group">
+                            <span class="color-dot" style="background-color: #ffcc00;"></span>
+                            <span class="item-label">At Risk</span>
+                        </div>
+                        <div class="item-value">
+                            <span id="at-risk-count" class="count-text text-at-risk">150</span>
+                            <span id="at-risk-percent" class="percent-text">(30%)</span>
+                        </div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="item-label-group">
+                            <span class="color-dot" style="background-color: #ff9500;"></span>
+                            <span class="item-label">High Risk</span>
+                        </div>
+                        <div class="item-value">
+                            <span id="high-risk-count" class="count-text text-high-risk">100</span>
+                            <span id="high-risk-percent" class="percent-text">(20%)</span>
+                        </div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="item-label-group">
+                            <span class="color-dot" style="background-color: #ff3b30;"></span>
+                            <span class="item-label">Critical</span>
+                        </div>
+                        <div class="item-value">
+                            <span id="critical-count" class="count-text text-critical">50</span>
+                            <span id="critical-percent" class="percent-text">(10%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card slide-up">
+                <div class="card-header-with-filter">
+                    <div class="card-title text-black"><strong>Churn Insights</strong></div>
+                    <select class="card-filter-select" id="churnFilter">
+                        <option value="mtd">MTD &nbsp;</option>
+                        <option value="qtr">QTR &nbsp;</option>
+                        <option value="ytd">YTD &nbsp;</option>
+                    </select>
+                </div>
+                <div class="churn-stats-grid">
+                    <div class="churn-stat-item">
+                        <div class="value" id="churnRate">3.5%</div>
+                        <div class="label">Churn Rate</div>
+                    </div>
+                    <div class="churn-stat-item">
+                        <div class="value" id="churnedAccounts">5</div>
+                        <div class="label">Churned Accounts</div>
+                    </div>
+                    <div class="churn-stat-item">
+                        <div class="value" id="revenueLost">$180K</div>
+                        <div class="label">Revenue Lost</div>
+                    </div>
+                </div>
+                <div class="at-risk-description" style="margin-top: 45px; margin-bottom: 5px;">
+                    Top Reasons for Churn:
+                </div>
+                <ul class="churn-reasons-list" id="churnReasonsList"></ul>
+                <button class="churn-action-button" id="analyzeChurnBtn">Analyze Churned Accounts</button>
+            </div>
+        </div>
+
+        <div class="charts-section-wrapper">
+            <div class="arr-trend-section">
+                <div class="arr-trend-header">
+                    <h2 class="text-gray-800 font-bold" style="font-size:1.0em;">ARR Trend Comparison</h2>
+                    <select class="arr-trend-dropdown" id="arrTrendFilter">
+                        <option value="current">Current Year vs. Previous Year</option>
+                        <option value="6months">Last 6 Months</option>
+                        <option value="12months">Last 12 Months</option>
+                        <option value="ytd">Year to Date</option>
+                    </select>
+                </div>
+                <div class="arr-trend-canvas-container">
+                    <canvas id="arrTrendChart"></canvas>
+                </div>
+            </div>
+            <div class="gmv-by-industry-section">
+                <div class="gmv-header">
+                    <h2 class="text-gray-800 font-bold" style="font-size:1.0em;">Industry wise (ARR & Conversion Rate)</h2>
+                    <select class="gmv-dropdown">
+                        <option value="mtd">MTD</option>
+                        <option value="qtr">QTR</option>
+                        <option value="ytd">YTD</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="gmvConversionChartCanvas"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="customer-portfolio-section">
+            <div class="customer-portfolio-header">
+                <h2 class="text-gray-800 font-bold" style="font-size:1.0em;">Customer Portfolio</h2>
+                <div style="display: flex; gap: 10px;">
+                    <button class="control-button" id="openFilterModalBtn">
+                        <span class="filter-icon">▼</span> Filter
+                    </button>
+                </div>
+            </div>
+            <div class="merchant-table-wrapper">
+                <table class="merchant-table">
+                    <thead>
+                        <tr>
+                            <th data-column="name">CUSTOMER <span class="sort-icons"><span class="sort-icon asc active" data-direction="asc">▲</span><span class="sort-icon desc" data-direction="desc">▼</span></span></th>
+                            <th data-column="industry">INDUSTRY <span class="sort-icons"><span class="sort-icon asc" data-direction="asc">▲</span><span class="sort-icon desc" data-direction="desc">▼</span></span></th>
+                            <th data-column="industrySector">INDUSTRY SECTOR <span class="sort-icons"><span class="sort-icon asc" data-direction="asc">▲</span><span class="sort-icon desc" data-direction="desc">▼</span></span></th>
+                            <th data-column="arr">ARR (MTD) <span class="sort-icons"><span class="sort-icon asc" data-direction="asc">▲</span><span class="sort-icon desc" data-direction="desc">▼</span></span></th>
+                            <th data-column="products">PRODUCTS <span class="sort-icons"><span class="sort-icon asc" data-direction="asc">▲</span><span class="sort-icon desc" data-direction="desc">▼</span></span></th>
+                            <th data-column="healthScore">HEALTH SCORE <span class="sort-icons"><span class="sort-icon asc" data-direction="asc">▲</span><span class="sort-icon desc" data-direction="desc">▼</span></span></th>
+                            <th data-column="status">STATUS <span class="sort-icons"><span class="sort-icon asc" data-direction="asc">▲</span><span class="sort-icon desc" data-direction="desc">▼</span></span></th>
+                            <th data-column="lastInteraction">LAST INTERACTION <span class="sort-icons"><span class="sort-icon asc" data-direction="asc">▲</span><span class="sort-icon desc" data-direction="desc">▼</span></span></th>
+                            <th>ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="merchantTableBody"></tbody>
+                </table>
+            </div>
+            <div class="pagination-container">
+                <div class="pagination-info" id="paginationInfo">Showing 1 to 5 of 11 customers</div>
+                <div class="pagination-controls">
+                    <button class="pagination-button" id="prevPageBtn" disabled>&lt;</button>
+                    <div id="pageNumbers"></div>
+                    <button class="pagination-button" id="nextPageBtn">&gt;</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="side-by-side-sections">
+            <div class="action-items-section">
+                <div class="action-items-header">
+                    <h2 class="text-gray-800 font-bold" style="font-size:1.0em;">Action Items</h2>
+                    <span class="pending-badge">3 pending</span>
+                </div>
+                <div class="action-items-grid">
+                    <div class="action-item-card danger">
+                        <span class="action-item-icon">&#9888;</span>
+                        <div class="action-item-content">
+                            <div class="action-item-title">Contract Renewal: Fashion Retail Co.</div>
+                            <div class="action-item-description">Due in 5 days</div>
+                            <button class="action-item-button">Schedule Call</button>
+                        </div>
+                    </div>
+                    <div class="action-item-card warning">
+                        <span class="action-item-icon">&#9888;</span>
+                        <div class="action-item-content">
+                            <div class="action-item-title">Payment Failures: HealthTech Solutions</div>
+                            <div class="action-item-description">3.5% increase in failures</div>
+                            <button class="action-item-button yellow">Investigate</button>
+                        </div>
+                    </div>
+                    <div class="action-item-card info">
+                        <span class="action-item-icon">&#9998;</span>
+                        <div class="action-item-content">
+                            <div class="action-item-title">EBR Preparation: Global SaaS Inc.</div>
+                            <div class="action-item-description">Scheduled for next week</div>
+                            <button class="action-item-button" onclick="switchTab('qbrdeck')">Prepare Report</button>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="view-all-link">View All Action Items</a>
+            </div>
+
+            <div class="growth-opportunities-section">
+                <div class="growth-opportunities-header">
+                    <div class="growth-opportunities-header-content">
+                        <h2 class="text-gray-800 font-bold" style="font-size:1.0em;">Growth Opportunities</h2>
+                        <select class="card-filter-select" id="growthOpportunityFilter">
+                            <option value="upsell">Upsell</option>
+                            <option value="cross-sell">Cross-sell</option>
+                        </select>
+                    </div>
+                    <span class="identified-badge" id="growthOpportunitiesBadge">3 identified</span>
+                </div>
+                <div class="opportunities-grid" id="opportunitiesGrid"></div>
+                <a href="#" class="view-all-link">View All Opportunities</a>
+            </div>
+
+            <div class="at-risk-merchants-section">
+                <div class="at-risk-merchants-header">
+                    <h2 class="text-gray-800 font-bold" style="font-size:1.0em;">At-Risk Accounts</h2>
+                    <span class="merchants-badge">4 accounts</span>
+                </div>
+                <div class="at-risk-merchants-grid">
+                    <div class="at-risk-card">
+                        <div class="at-risk-merchant-avatar">AC</div>
+                        <div class="at-risk-content">
+                            <div class="at-risk-main-info-row">
+                                <div class="at-risk-text-details">
+                                    <span class="at-risk-merchant-name">Alpha Corp</span>
+                                    <span class="at-risk-sub-info">-5.2% Engagement • Health: 58</span>
+                                </div>
+                                <div class="at-risk-health-score-circle">58</div>
+                            </div>
+                            <div class="at-risk-description">Risk Factors:</div>
+                            <ul class="risk-factors-list">
+                                <li>Low CRM feature adoption (SalesIQ, Campaigns)</li>
+                                <li>No recent support interactions (passive churn risk)</li>
+                            </ul>
+                            <button class="schedule-button">Initiate Engagement</button>
+                        </div>
+                    </div>
+                    <div class="at-risk-card">
+                        <div class="at-risk-merchant-avatar">BS</div>
+                        <div class="at-risk-content">
+                            <div class="at-risk-main-info-row">
+                                <div class="at-risk-text-details">
+                                    <span class="at-risk-merchant-name">Beta Solutions</span>
+                                    <span class="at-risk-sub-info">-2.1% Payment Rate • Health: 34</span>
+                                </div>
+                                <div class="at-risk-health-score-circle">34</div>
+                            </div>
+                            <div class="at-risk-description">Risk Factors:</div>
+                            <ul class="risk-factors-list">
+                                <li>2 invoices overdue by 30+ days in Zoho Books</li>
+                                <li>Unresolved integration errors with external payment gateway</li>
+                            </ul>
+                            <button class="schedule-button">Follow-up on Payments</button>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="view-all-link">View All At-Risk Accounts</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="merchant-360-content" class="widget-container-bg" frameborder="0">
+       <div class="iframe-container">
+            <iframe src="https://sridhana72.github.io/Accounts-Module/"></iframe>
+        </div> 
+    </div>
+    <div id="qbr-deck-content" class="dynamic-content-bg" frameborder="0">
+       <div class="iframe-container">
+         <iframe src="https://sridhana72.github.io/QBR-Deck--1/"></iframe>
+        </div> 
+    </div>
+
+    <div id="filterModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Apply Filters</h2>
+                <span class="modal-close-btn" id="closeFilterModalBtn">&times;</span>
+            </div>
+            <div class="modal-body" id="filterModalBody">
+                <p style="font-size: 0.9em; color: #616161; margin-top: 0;">Add one or more conditions to filter the customer table.</p>
+            </div>
+            <button class="add-filter-btn" id="addFilterRowBtn"><span>+</span> Add another filter</button>
+            <div class="modal-footer">
+                <button class="clear-all-btn" id="clearAllFiltersBtn">Clear All</button>
+                <button class="apply-filters-btn" id="applyFiltersBtn">Apply Filters</button>
+            </div>
+        </div>
+    </div>
+    <div id="sortModal" class="modal-overlay">
+        <div class="modal-content sort-modal-content">
+            <div class="modal-header">
+                <h2>Sort Table</h2>
+                <span class="modal-close-btn" id="closeSortModalBtn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 0.9em; color: #616161; margin-top: 0;">Select a column and a direction to sort the customer table.</p>
+                <div class="sort-option-row">
+                    <span class="modal-label">Column</span>
+                    <select id="sortColumnSelect">
+                        <option value="name">CUSTOMER</option>
+                        <option value="industry">INDUSTRY</option>
+                        <option value="industrySector">INDUSTRY SECTOR</option>
+                        <option value="arr">ARR</option>
+                        <option value="products">PRODUCTS</option>
+                        <option value="healthScore">HEALTH SCORE</option>
+                        <option value="status">STATUS</option>
+                        <option value="lastInteraction">LAST INTERACTION</option>
+                    </select>
+                </div>
+                <div class="sort-option-row">
+                    <span class="modal-label">Direction</span>
+                    <button class="sort-direction-btn active" id="sortAscendingBtn" data-direction="asc">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L6.5 7h11L12 2zm-5 15h10v2H7zm0-4h10v2H7zm0-4h10v2H7z"/></svg> Ascending
+                    </button>
+                    <button class="sort-direction-btn" id="sortDescendingBtn" data-direction="desc">
+                        <svg viewBox="0 0 24 24"><path d="M12 22l5.5-5h-11L12 22zm5-15H7V5h10zm0-4H7V1h10z"/></svg> Descending
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="clear-all-btn" id="clearSortBtn">Clear Sort</button>
+                <button class="apply-sort-btn" id="applySortBtn">Apply Sort</button>
+            </div>
+        </div>
+    </div>
+    <div id="allProductsModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>All Zoho Products</h2>
+                <span class="modal-close-btn" id="closeAllProductsModalBtn">&times;</span>
+            </div>
+            <div class="modal-body" id="allProductsModalBody" style="max-height: 400px; overflow-y: auto;"></div>
+            <div class="modal-footer" style="justify-content: center;">
+                 <button class="clear-all-btn" id="closeAllProductsModalFooterBtn">Close</button>
+            </div>
+        </div>
+    </div>
+    <div id="churnAnalysisModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Churn Analysis Report</h2>
+                <span class="modal-close-btn" id="closeChurnAnalysisModalBtn">×</span>
+            </div>
+            <div class="modal-body">
+                <h3><span class="churn-icon blue">📈</span> Overview of Churned Accounts</h3>
+                <p>This report provides a deeper look into accounts that have churned recently.</p>
+                <div class="detail-item">
+                    <span class="label"><span class="churn-icon red">👤</span> Total Churned Accounts:</span>
+                    <span class="value" id="modalChurnedAccounts">5</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label"><span class="churn-icon red">💰</span> Total Revenue Lost:</span>
+                    <span class="value" id="modalRevenueLost">$180,000</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label"><span class="churn-icon yellow">💵</span> Average Contract Value (ACV) of Churned:</span>
+                    <span class="value" id="modalAverageAcv">$36,000</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label"><span class="churn-icon red">📉</span> Highest Churn Period:</span>
+                    <span class="value" id="modalHighestChurnPeriod">This Month (3.5%)</span>
+                </div>
+                <hr style="border: 0; height: 1px; background-color: #eee; margin: 20px 0;">
+                <h3><span class="churn-icon green">📊</span> Key Product Usage Correlates</h3>
+                <ul class="suggestions-list">
+                    <li><strong style="font-weight: 600;">Zoho CRM:</strong> Accounts often had incomplete contact data or infrequent sales activity logging.</li>
+                    <li><strong style="font-weight: 600;">Zoho Books:</strong> High incidence of delayed payments or unlinked invoicing.</li>
+                    <li><strong style="font-weight: 600;">Zoho Desk:</strong> Limited use of helpdesk features.</li>
+                </ul>
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                 <button class="clear-all-btn" id="closeChurnAnalysisModalFooterBtn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="wakeUpEmailModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h2>Reactivation Campaign</h2>
+                <span class="modal-close-btn" id="closeWakeUpModalBtn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="email-field-row">
+                    <span class="email-label">To:</span>
+                    <div class="email-recipient-badge">80 Dormant Accounts</div>
+                </div>
+                <div class="email-field-row">
+                    <span class="email-label">Subject:</span>
+                    <input type="text" class="email-input" value="We miss you! (Special offer inside)">
+                </div>
+                <div class="email-body-container">
+                    <textarea class="email-textarea">Hi [First Name],
+
+We noticed it's been a while since you logged into your account. We've made some major updates recently.
+
+To help you get back on track, we've unlocked a 20% discount on your next renewal if you sign in this week.
+
+Click here to reactivate: [Link]
+
+Best,
+The Account Team</textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="clear-all-btn" id="cancelWakeUpBtn">Cancel</button>
+                <button class="apply-filters-btn" id="sendWakeUpBtn" style="background: #673ab7;">Send to 80 Contacts</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="gapAnalysisModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h2>Usage Gap Analysis</h2>
+                <span class="modal-close-btn" id="closeGapModalBtn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p style="color: #616161; font-size: 0.9em; margin-bottom: 20px;">
+                    These <strong>45 accounts</strong> are falling behind their industry peers. They have access to these features but aren't using them.
+                </p>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #ffc107;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom: 5px;">
+                        <span style="font-weight: 600; color: #333;">Zoho Analytics (Reports)</span>
+                        <span style="font-size: 0.8em; color: #28a745; font-weight:600;">High Impact</span>
+                    </div>
+                    <div style="font-size: 0.85em; color: #666;">
+                        Only <strong>12%</strong> utilization. Industry avg is <strong>65%</strong>.
+                    </div>
+                </div>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #17a2b8;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom: 5px;">
+                        <span style="font-weight: 600; color: #333;">CRM Mobile App</span>
+                        <span style="font-size: 0.8em; color: #17a2b8; font-weight:600;">Easy Win</span>
+                    </div>
+                    <div style="font-size: 0.85em; color: #666;">
+                        <strong>0 logins</strong> via mobile. Competitors log 40% of deals via mobile.
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="clear-all-btn" id="cancelGapBtn">Close</button>
+                <button class="apply-filters-btn" id="sendGapEmailBtn" style="background: #ffc107; color: #333;">Send Recommendation Email</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Campaign sent successfully! 🚀</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+    <script src="productAdoption.js"></script>
+</body>
+</html>
