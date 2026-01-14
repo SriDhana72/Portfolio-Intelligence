@@ -3398,8 +3398,8 @@ body { /* Styles for the entire page body */
 .at-risk-health-score-circle {
     margin: 0 !important; /* Remove old margins */
     /* Ensure other properties remain */
-    width: 24px;
-    height: 24px;
+    width: 31px;
+    height: 31px;
     border-radius: 50%;
     background: var(--gradient-yellow);
     color: #333;
