@@ -1658,21 +1658,6 @@ body { /* Styles for the entire page body */
     font-weight: 400; /* Kept as is, matches screenshot */
     margin-top: 0; /* Remove default margin-top if any */
 }
-.at-risk-health-score-circle { /* Health score circle in at-risk card */
-    width: 24px; /* Width */
-    height: 24px; /* Height */
-    border-radius: 50%; /* Circle shape */
-    background: var(--gradient-yellow); /* Changed to yellow gradient */
-    color: #333; /* Dark text for yellow circle */
-    display: flex; /* Flexbox for centering text */
-    justify-content: center; /* Horizontally center */
-    align-items: center; /* Vertically center */
-    font-size: 0.75em; /* Font size */
-    font-weight: 600; /* Adjusted font weight */
-    flex-shrink: 0; /* Prevent shrinking */
-    margin-left: 10px; /* Space between sub-info and circle */
-    margin-top: 2px; /* Align slightly with the text line */
-}
 .at-risk-description { /* This is the "Risk Factors:" label */
     font-size: 0.9em; /* Kept consistent with list items */
     color: #333; /* Darker color for emphasis */
@@ -2076,16 +2061,20 @@ body { /* Styles for the entire page body */
 .churn-action-button {
     background: var(--gradient-red);
     color: white;
-    padding: 8px 15px;
+    /* Compact padding for header */
+    padding: 6px 12px; 
     border-radius: 6px;
     border: none;
     cursor: pointer;
-    font-size: 0.85em;
+    font-size: 0.75em; /* Slightly smaller font to fit header */
     font-weight: 600;
     transition: background 0.2s;
-    width: 100%;
-    text-align: center;
-    margin-top: auto; /* Push to the bottom */
+    
+    /* --- Layout Adjustments for Header --- */
+    width: fit-content;
+    margin: 0; /* Remove auto margins */
+    display: inline-block; /* Sit inline with other header items */
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 .churn-action-button:hover {
@@ -3395,3 +3384,128 @@ body { /* Styles for the entire page body */
 .slide-up:nth-child(2) { animation-delay: 0.2s; }
 .slide-up:nth-child(3) { animation-delay: 0.3s; }
 .slide-up:nth-child(4) { animation-delay: 0.4s; }
+/* --- Updated At-Risk Alignment --- */
+
+/* New Container for Name + Score */
+.at-risk-name-row {
+    display: flex;
+    align-items: center; /* Vertically center the text and the ball */
+    gap: 25px; /* Space between Name and Ball */
+    margin-bottom: 4px; /* Space between this row and the sub-info text */
+}
+
+/* Reset margins on the circle so it aligns perfectly in the flex row */
+.at-risk-health-score-circle {
+    margin: 0 !important; /* Remove old margins */
+    /* Ensure other properties remain */
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--gradient-yellow);
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75em;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+/* Update sub-info to remove the 'Health:' text part if you only want the metric */
+.at-risk-sub-info {
+    display: block; /* Ensure it sits on its own line */
+    font-size: 0.85em;
+    color: #dc3545;
+    font-weight: 400;
+}
+/* --- Churn Drivers Visualization --- */
+
+.churn-drivers-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    font-size: 0.85em;
+    color: #333;
+    font-weight: 600;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 5px;
+}
+
+.churn-drivers-title small {
+    color: #888;
+    font-weight: 400;
+    font-size: 0.9em;
+}
+
+.churn-driver-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 0.85em;
+}
+
+.driver-info {
+    width: 140px; /* Fixed width for labels */
+    flex-shrink: 0;
+    color: #333;
+    font-weight: 500;
+}
+
+.driver-bar-container {
+    flex-grow: 1;
+    background-color: #f1f3f4;
+    height: 6px;
+    border-radius: 3px;
+    margin: 0 12px;
+    overflow: hidden;
+}
+
+.driver-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    /* Gradient Red to Orange based on severity */
+    background: linear-gradient(90deg, #ff8f8f, #dc3545); 
+}
+
+.driver-stats {
+    width: 50px;
+    text-align: right;
+    font-weight: 700;
+    color: #333;
+    font-size: 0.9em;
+}
+
+.trend-icon {
+    margin-left: 6px;
+    font-size: 0.8em;
+}
+.trend-up { color: #dc3545; } /* Red arrow up = bad for churn */
+.trend-down { color: #28a745; } /* Green arrow down = good */
+.trend-flat { color: #999; }
+/* --- Modal Configure Button --- */
+.modal-config-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #f8f9fa; /* Light background */
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 0.85em;
+    color: #555;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-config-btn:hover {
+    background-color: #e2e6ea;
+    color: #333;
+    border-color: #d6d8db;
+}
+
+.modal-config-btn i {
+    font-size: 0.9em; /* Ensure icon isn't too large */
+}

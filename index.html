@@ -20,7 +20,7 @@
         <div class="header-row">
             <div class="header-left">
                 <img src="img/zoho.png" alt="zoho Logo" width="100" height="40">
-                <span class="app-title">&nbsp;Portfolio Intelligence </span>
+                <span class="app-title">&nbsp;Portfolio Intelligence</span>
                 <button class="refresh-btn" onclick="handleRefresh(event)">
                     <svg class="refresh-icon" viewBox="0 0 24 24">
                         <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
@@ -490,15 +490,21 @@
                 </div>
             </div>
 
-            <div class="card slide-up">
-                <div class="card-header-with-filter">
-                    <div class="card-title text-black"><strong>Churn Insights</strong></div>
-                    <select class="card-filter-select" id="churnFilter">
-                        <option value="mtd">MTD &nbsp;</option>
-                        <option value="qtr">QTR &nbsp;</option>
-                        <option value="ytd">YTD &nbsp;</option>
-                    </select>
+            <div class="card">
+                <div class="card-header-with-filter" style="justify-content: space-between; align-items: center;">
+                    
+                    <div style="display: flex; align-items: center; gap: 25px;">
+                        <div class="card-title text-black" style="margin:0;"><strong>Churn Insights</strong></div>
+                        <select class="card-filter-select" id="churnFilter">
+                            <option value="mtd">MTD &nbsp;</option>
+                            <option value="qtr">QTR &nbsp;</option>
+                            <option value="ytd">YTD &nbsp;</option>
+                        </select>
+                    </div>
+
+                    <button class="churn-action-button" id="analyzeChurnBtn">Analyze Churned Accounts</button>
                 </div>
+                
                 <div class="churn-stats-grid">
                     <div class="churn-stat-item">
                         <div class="value" id="churnRate">3.5%</div>
@@ -513,11 +519,14 @@
                         <div class="label">Revenue Lost</div>
                     </div>
                 </div>
-                <div class="at-risk-description" style="margin-top: 45px; margin-bottom: 5px;">
-                    Top Reasons for Churn:
+
+                <div class="churn-drivers-title">
+                    <span>Primary Churn Drivers</span>
+                    <small>Impact by Volume</small>
                 </div>
-                <ul class="churn-reasons-list" id="churnReasonsList"></ul>
-                <button class="churn-action-button" id="analyzeChurnBtn">Analyze Churned Accounts</button>
+
+                <div id="churnDriversContainer" class="churn-drivers-container">
+                    </div>
             </div>
         </div>
 
@@ -647,13 +656,12 @@
                     <div class="at-risk-card">
                         <div class="at-risk-merchant-avatar">AC</div>
                         <div class="at-risk-content">
-                            <div class="at-risk-main-info-row">
-                                <div class="at-risk-text-details">
-                                    <span class="at-risk-merchant-name">Alpha Corp</span>
-                                    <span class="at-risk-sub-info">-5.2% Engagement • Health: 58</span>
-                                </div>
+                            <div class="at-risk-name-row">
+                                <span class="at-risk-merchant-name">Alpha Corp</span>
                                 <div class="at-risk-health-score-circle">58</div>
                             </div>
+                            <span class="at-risk-sub-info">-5.2% Engagement</span>
+                            
                             <div class="at-risk-description">Risk Factors:</div>
                             <ul class="risk-factors-list">
                                 <li>Low CRM feature adoption (SalesIQ, Campaigns)</li>
@@ -662,16 +670,16 @@
                             <button class="schedule-button">Initiate Engagement</button>
                         </div>
                     </div>
+
                     <div class="at-risk-card">
                         <div class="at-risk-merchant-avatar">BS</div>
                         <div class="at-risk-content">
-                            <div class="at-risk-main-info-row">
-                                <div class="at-risk-text-details">
-                                    <span class="at-risk-merchant-name">Beta Solutions</span>
-                                    <span class="at-risk-sub-info">-2.1% Payment Rate • Health: 34</span>
-                                </div>
+                            <div class="at-risk-name-row">
+                                <span class="at-risk-merchant-name">Beta Solutions</span>
                                 <div class="at-risk-health-score-circle">34</div>
                             </div>
+                            <span class="at-risk-sub-info">-2.1% Payment Rate</span>
+
                             <div class="at-risk-description">Risk Factors:</div>
                             <ul class="risk-factors-list">
                                 <li>2 invoices overdue by 30+ days in Zoho Books</li>
@@ -769,7 +777,7 @@
                 <span class="modal-close-btn" id="closeChurnAnalysisModalBtn">×</span>
             </div>
             <div class="modal-body">
-                <h3><span class="churn-icon blue">📈</span> Overview of Churned Accounts</h3>
+                <h3> Overview of Churned Accounts</h3>
                 <p>This report provides a deeper look into accounts that have churned recently.</p>
                 <div class="detail-item">
                     <span class="label"><span class="churn-icon red">👤</span> Total Churned Accounts:</span>
@@ -788,7 +796,7 @@
                     <span class="value" id="modalHighestChurnPeriod">This Month (3.5%)</span>
                 </div>
                 <hr style="border: 0; height: 1px; background-color: #eee; margin: 20px 0;">
-                <h3><span class="churn-icon green">📊</span> Key Product Usage Correlates</h3>
+                <h3>Key Product Usage Correlates</h3>
                 <ul class="suggestions-list">
                     <li><strong style="font-weight: 600;">Zoho CRM:</strong> Accounts often had incomplete contact data or infrequent sales activity logging.</li>
                     <li><strong style="font-weight: 600;">Zoho Books:</strong> High incidence of delayed payments or unlinked invoicing.</li>
@@ -804,9 +812,16 @@
     <div id="wakeUpEmailModal" class="modal-overlay">
         <div class="modal-content" style="max-width: 600px;">
             <div class="modal-header">
-                <h2>Reactivation Campaign</h2>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <h2>Reactivation Campaign</h2>
+                    <button class="modal-config-btn" onclick="alert('Configuration Settings Opened!')">
+                        <i class="bi bi-gear"></i> Configure
+                    </button>
+                </div>
+                
                 <span class="modal-close-btn" id="closeWakeUpModalBtn">&times;</span>
             </div>
+            
             <div class="modal-body">
                 <div class="email-field-row">
                     <span class="email-label">To:</span>

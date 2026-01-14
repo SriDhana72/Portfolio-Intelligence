@@ -47,11 +47,42 @@ const upsellCrossSellData = {
     "year": { upsell: { accounts: 250, revenue: 18000000 }, crossSell: { accounts: 180, revenue: 9000000 } }
 };
 
-// Churn Data
+// Updated Churn Data with Rich Drivers
 const churnData = {
-    "mtd": { churnRate: "3.5%", churnedAccounts: 5, revenueLost: 180000, highestChurnPeriod: "This Month", highestChurnPercentage: "3.5%", reasons: ["Low Zoho product adoption", "Lack of proactive support", "Competitive pricing"], averageAcv: 36000 },
-    "qtr": { churnRate: "8.2%", churnedAccounts: 18, revenueLost: 650000, highestChurnPeriod: "April (Q2)", highestChurnPercentage: "3.0%", reasons: ["Product usability issues", "Pricing pressure", "Lack of feature parity"], averageAcv: 36111 },
-    "ytd": { churnRate: "15.1%", churnedAccounts: 32, revenueLost: 1200000, highestChurnPeriod: "Q1 2024 (March)", highestChurnPercentage: "4.5%", reasons: ["Lack of deep integration", "CSM engagement gaps", "Business model changes"], averageAcv: 37500 }
+    "mtd": { 
+        churnRate: "3.5%", 
+        churnedAccounts: 5, 
+        revenueLost: 180000, 
+        reasons: [
+            { name: "Product Gaps", pct: 45, trend: "up" },
+            { name: "Price/Budget", pct: 30, trend: "flat" },
+            { name: "Support SLA", pct: 15, trend: "down" }
+        ],
+        // ... keep other fields if needed for modal
+        averageAcv: 36000, highestChurnPeriod: "This Month", highestChurnPercentage: "3.5%"
+    },
+    "qtr": { 
+        churnRate: "8.2%", 
+        churnedAccounts: 18, 
+        revenueLost: 650000, 
+        reasons: [
+            { name: "Executive Change", pct: 40, trend: "up" },
+            { name: "Product Gaps", pct: 35, trend: "up" },
+            { name: "Competition", pct: 25, trend: "down" }
+        ],
+        averageAcv: 36111, highestChurnPeriod: "April (Q2)", highestChurnPercentage: "3.0%"
+    },
+    "ytd": { 
+        churnRate: "15.1%", 
+        churnedAccounts: 32, 
+        revenueLost: 1200000, 
+        reasons: [
+            { name: "Implementation", pct: 50, trend: "down" },
+            { name: "Adoption Low", pct: 30, trend: "flat" },
+            { name: "Pricing", pct: 20, trend: "up" }
+        ],
+        averageAcv: 37500, highestChurnPeriod: "Q1 2024 (March)", highestChurnPercentage: "4.5%"
+    }
 };
 
 // Trend Data
@@ -531,8 +562,37 @@ function updateChurnCard(period) {
     document.getElementById('churnRate').textContent = data.churnRate;
     document.getElementById('churnedAccounts').textContent = data.churnedAccounts;
     document.getElementById('revenueLost').textContent = formatArr(data.revenueLost);
-    const list = document.getElementById('churnReasonsList'); list.innerHTML = '';
-    data.reasons.forEach(r => { const li = document.createElement('li'); li.textContent = r; list.appendChild(li); });
+    
+    // NEW: Render Driver Bars (Apple-style)
+    const container = document.getElementById('churnDriversContainer');
+    
+    if (container) {
+        container.innerHTML = ''; // Clear previous content
+
+        data.reasons.forEach(reason => {
+            // Determine Trend Icon Logic
+            let trendHtml = '';
+            if (reason.trend === 'up') {
+                trendHtml = '<span class="trend-icon trend-up">▲</span>'; // Rising issue (Bad)
+            } else if (reason.trend === 'down') {
+                trendHtml = '<span class="trend-icon trend-down">▼</span>'; // Decreasing issue (Good)
+            } else {
+                trendHtml = '<span class="trend-icon trend-flat">−</span>'; // Stable
+            }
+
+            // Create the Row
+            const row = document.createElement('div');
+            row.classList.add('churn-driver-row');
+            row.innerHTML = `
+                <div class="driver-info">${reason.name}</div>
+                <div class="driver-bar-container">
+                    <div class="driver-bar-fill" style="width: ${reason.pct}%;"></div>
+                </div>
+                <div class="driver-stats">${reason.pct}% ${trendHtml}</div>
+            `;
+            container.appendChild(row);
+        });
+    }
 }
 churnFilter.addEventListener('change', (e) => updateChurnCard(e.target.value));
 document.getElementById('analyzeChurnBtn').addEventListener('click', () => {
