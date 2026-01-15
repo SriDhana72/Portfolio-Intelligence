@@ -3509,3 +3509,250 @@ body { /* Styles for the entire page body */
 .modal-config-btn i {
     font-size: 0.9em; /* Ensure icon isn't too large */
 }
+/* --- Renewals Widget Styles --- */
+
+.renewal-card {
+    padding: 0 !important; /* Override default card padding to handle full-width header */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Ensure it matches other cards height */
+    min-height: 380px; 
+}
+
+/* Header */
+.renewal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    background-color: #f8fafc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.renewal-title {
+    font-size: 0.85em;
+    font-weight: 700;
+    color: #1e293b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.renewal-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.75em;
+    color: #64748b;
+    margin-top: 2px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 50%;
+}
+
+.renewal-select {
+    padding: 4px 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 0.75em;
+    color: #334155;
+    background: white;
+    cursor: pointer;
+    outline: none;
+}
+
+/* Chart Section */
+.renewal-chart-section {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chart-container-wrapper {
+    height: 90px;
+    width: 90px;
+    position: relative;
+}
+
+.rate-display {
+    text-align: right;
+}
+
+.rate-label {
+    font-size: 0.75em;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.rate-value {
+    font-size: 1.8em;
+    font-weight: 800;
+    color: #1e293b;
+    line-height: 1;
+}
+
+.growth-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.75em;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-top: 6px;
+}
+
+/* Trend Colors */
+.trend-positive {
+    background-color: #ecfdf5;
+    color: #059669;
+}
+
+.trend-negative {
+    background-color: #fff1f2;
+    color: #e11d48;
+}
+
+/* Metrics Grid */
+.renewal-metrics-grid {
+    padding: 0 20px 20px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    text-align: center;
+}
+
+.metric-box {
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid;
+}
+
+.metric-label {
+    font-size: 0.65em;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.metric-value {
+    font-size: 0.9em;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Box Variants */
+.box-gray {
+    background-color: #f8fafc;
+    border-color: #f1f5f9;
+}
+.box-gray .metric-label { color: #94a3b8; }
+.box-gray .metric-value { color: #334155; }
+
+.box-green {
+    background-color: #ecfdf5;
+    border-color: #d1fae5;
+}
+.box-green .metric-label { color: #059669; }
+.box-green .metric-value { color: #047857; }
+
+.box-red {
+    background-color: #fff1f2;
+    border-color: #ffe4e6;
+}
+.box-red .metric-label { color: #e11d48; }
+.box-red .metric-value { color: #be123c; }
+
+/* Alert Section */
+.renewal-alert {
+    margin: 0 20px 20px 20px;
+    padding: 12px;
+    background-color: #fffbeb;
+    border: 1px solid #fef3c7;
+    border-radius: 8px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.alert-icon {
+    color: #f59e0b;
+    font-size: 1.2em;
+    margin-top: 2px;
+}
+
+.alert-title {
+    font-size: 0.65em;
+    font-weight: 700;
+    color: #d97706;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.alert-text {
+    font-size: 0.75em;
+    color: #334155;
+    margin: 2px 0 0 0;
+    line-height: 1.3;
+}
+
+.alert-highlight {
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* Footer */
+.renewal-footer {
+    background-color: #f8fafc;
+    padding: 12px 20px;
+    border-top: 1px solid #f1f5f9;
+    text-align: center;
+    margin-top: auto; /* Pushes footer to bottom */
+}
+
+.view-report-btn {
+    background: none;
+    border: none;
+    font-size: 0.75em;
+    font-weight: 600;
+    color: #2563eb;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.2s;
+}
+
+.view-report-btn:hover {
+    color: #1e40af;
+}
+/* Update to allow two dropdowns */
+.renewal-filters {
+    display: flex;
+    gap: 8px; /* Space between Year and Region */
+}
+
+/* Ensure the select styling applies to both */
+.renewal-select {
+    padding: 4px 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 0.75em;
+    color: #334155;
+    background: white;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.renewal-select:hover {
+    border-color: #cbd5e1;
+}

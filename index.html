@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<script src="renewalsWidget.js" defer></script>
 </head>
 <body>
     <div class="nav-bar">
@@ -302,24 +305,76 @@
         </div>
 
         <div class="cards-container">
-            <div class="card slide-up">
-                <span class="card-percentage-change">+12.4%</span>
-                <div class="card-title text-black"><STRONG>Total ARR (MTD)</STRONG></div>
-                <div class="card-value">$42.8M</div>
-                <div class="card-comparison">vs $38.1M last month</div>
-                <div class="primary-progress-bar-container">
-                    <div class="primary-progress-bar-fill" style="width: 85%;"></div>
+            <div class="card renewal-card">
+                
+                <div class="renewal-header">
+                    <div>
+                        <h2 class="renewal-title">Renewal Health</h2>
+                        <div class="renewal-status">
+                            <span class="status-dot"></span> Live Data
+                        </div>
+                    </div>
+                    
+                    <div class="renewal-filters">
+                        <select id="widget-year" class="renewal-select">
+                            <option value="2026">2026</option>
+                            <option value="2025" selected>2025</option>
+                            <option value="2024">2024</option>
+                        </select>
+
+                        <select id="widget-region" class="renewal-select">
+                            <option value="Global">Global</option>
+                            <option value="APAC">APAC</option>
+                            <option value="ANZ">ANZ</option>
+                            <option value="India">India</option>
+                            <option value="Canada">Canada</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="progress-details">
-                    <span>Target : $50M</span>
-                    <span class="achieved">85% achieved</span>
+
+                <div class="renewal-chart-section">
+                    <div class="chart-container-wrapper">
+                        <canvas id="miniChart"></canvas>
+                    </div>
+                    
+                    <div class="rate-display">
+                        <p class="rate-label">Renewal Rate</p>
+                        <div class="rate-value" id="widget-rate">0%</div>
+                        <div class="growth-badge" id="widget-growth-badge">
+                            <i class="ph ph-trend-up"></i> <span id="widget-growth">0%</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="secondary-progress-bar-container">
-                    <div class="secondary-progress-bar-fill" style="width: 92%;"></div>
+
+                <div class="renewal-metrics-grid">
+                    <div class="metric-box box-gray">
+                        <div class="metric-label">Target</div>
+                        <div class="metric-value" id="widget-target">-</div>
+                    </div>
+                    <div class="metric-box box-green">
+                        <div class="metric-label">Renewed</div>
+                        <div class="metric-value" id="widget-renewed">-</div>
+                    </div>
+                    <div class="metric-box box-red">
+                        <div class="metric-label">Churned</div>
+                        <div class="metric-value" id="widget-cancelled">-</div>
+                    </div>
                 </div>
-                <div class="secondary-progress-details">
-                    <span class="inactive-info">Active Accounts: 46 of 50</span>
-                    <span class="active-percentage-info">92% active</span>
+
+                <div class="renewal-alert">
+                    <i class="ph-fill ph-warning-circle alert-icon"></i>
+                    <div>
+                        <p class="alert-title">Top Risk Factor</p>
+                        <p class="alert-text">
+                            Primary cancellation reason is <span class="alert-highlight" id="widget-reason">...</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="renewal-footer">
+                    <button class="view-report-btn">
+                        View Full Report <i class="ph-bold ph-arrow-right"></i>
+                    </button>
                 </div>
             </div>
 
