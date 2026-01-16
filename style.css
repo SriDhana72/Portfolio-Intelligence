@@ -90,11 +90,12 @@ body { /* Styles for the entire page body */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Softer shadow */
     text-align: left; /* Align text to the left */
     width: auto; /* Allow content to dictate width */
-    max-width: 98%; /* Slightly wider for the new element */
+    max-width: 150%; /* Slightly wider for the new element */
     box-sizing: border-box; /* Include padding in width calculation */
     position: relative; /* For positioning purposes */
-    top: 40px; /* Align to top */
     left: 0; /* Align to left */
+    margin-top: 40px; 
+    padding-top: 10px;
 }
 
 
@@ -3755,4 +3756,40 @@ body { /* Styles for the entire page body */
 
 .renewal-select:hover {
     border-color: #cbd5e1;
+}
+/* New sticky wrapper for the toolbar */
+.sticky-filter-wrapper {
+    position: sticky;
+    top: 50px; /* Sits directly below your .nav-bar */
+    z-index: 900; /* Lower than nav-bar (1000) but higher than content */
+    background-color: #f0f2f5; /* Matches the body background to prevent transparency */
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+
+/* Ensure the toolbar itself looks seamless */
+.filters-toolbar {
+    margin-bottom: 0 !important; /* Margin is now handled by the wrapper */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); /* Optional: adds depth when scrolling */
+}
+/* 1. The Sticky Wrapper */
+.sticky-header {
+    position: sticky;
+    top: 50px; /* Sits exactly below your .nav-bar */
+    z-index: 950;
+    background-color: #ffffff; /* Must have background to hide scrolling content behind it */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0; /* Optional: adds a visual line when scrolling */
+}
+
+/* 2. Adjust the Nav Bar */
+.nav-bar {
+    z-index: 1000; /* Ensure the navigation tabs stay on very top */
+}
+
+/* 4. Ensure the Filter Toolbar doesn't have extra margins that break the stickiness */
+.filters-toolbar {
+    margin-bottom: 0 !important;
 }
