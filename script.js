@@ -871,12 +871,16 @@ window.addEventListener('resize', () => {
     }
 });
 
-// Refresh Handler
+//Refresh Handler
 function handleRefresh(event) {
     const btn = event.currentTarget;
     btn.classList.add('spinning');
+
+    // --- RESET FILTERS HERE ---
+    resetAllFilters(); 
     setTimeout(() => {
         btn.classList.remove('spinning');
+        // Optional: Flash the content to simulate data reload
         if (dashboardContent) {
             dashboardContent.style.display = 'none';
             setTimeout(() => dashboardContent.style.display = 'block', 50);
@@ -887,9 +891,13 @@ function handleRefresh(event) {
 // --- MASTER INIT ---
 window.addEventListener('load', () => {
     switchTab('dashboard');
-    applyAllFilters();
+    
+    // --- FORCE RESET ON LOAD ---
+    // This ensures checkboxes are all checked even if the browser cached them as unchecked
+    resetAllFilters(); 
+    // ---------------------------
+
     updateUpsellCrossSellCard('month');
-    // Removed old Product Adoption call
     renderArrTrendChart();
     renderGmvConversionChart();
     updateChurnCard('mtd');
@@ -991,3 +999,45 @@ window.addEventListener('click', function(e) {
         document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
     }
 });
+function resetAllFilters() {
+    // 1. Reset Custom Dropdowns
+    const dropdownIds = [
+        'region-dropdown', 
+        'bu-dropdown', 
+        'services-dropdown', 
+        'segment-dropdown', 
+        'industry-dropdown'
+    ];
+
+    dropdownIds.forEach(id => {
+        const dropdown = document.getElementById(id);
+        if (!dropdown) return;
+
+        // A. Check ALL boxes
+        const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => cb.checked = true);
+
+        // B. Update the displayed text to "All [Title]"
+        const triggerText = dropdown.querySelector('.selected-text');
+        let title = "Items";
+        if(id.includes('region')) title = "Regions";
+        if(id.includes('bu')) title = "BU Heads";
+        if(id.includes('segment')) title = "Segments";
+        if(id.includes('services')) title = "Services";
+        if(id.includes('industry')) title = "Industries";
+        
+        triggerText.textContent = `All ${title}`;
+    });
+
+    // 2. Reset ARR Capsule Filters
+    arrLessThan5kActive = false;
+    arrGreaterThan5kActive = false;
+    
+    // 3. Reset ARR Visuals
+    document.getElementById('arrLessThan5k').classList.remove('active');
+    document.getElementById('arrGreaterThan5k').classList.remove('active');
+    document.getElementById('filterArrCapsule').classList.remove('active');
+
+    // 4. Re-apply (which will now show ALL data)
+    applyAllFilters();
+}
