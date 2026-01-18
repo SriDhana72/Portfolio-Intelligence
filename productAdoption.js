@@ -121,6 +121,7 @@ const ProductAdoption = {
             this.paidContainer.innerHTML = this.renderPaidCard(industryKey);
         }
     },
+    
 
     // HTML Generators
     renderTrialCard: function(regionKey) {

@@ -875,17 +875,27 @@ window.addEventListener('resize', () => {
 function handleRefresh(event) {
     const btn = event.currentTarget;
     btn.classList.add('spinning');
+    
+    // Show Loader
+    const loader = document.getElementById('dashboard-loader');
+    if(loader) {
+        loader.classList.remove('fade-out'); // Show it
+        loader.style.display = 'flex';       // Ensure it's visible
+    }
 
     // --- RESET FILTERS HERE ---
     resetAllFilters(); 
+
     setTimeout(() => {
         btn.classList.remove('spinning');
-        // Optional: Flash the content to simulate data reload
-        if (dashboardContent) {
-            dashboardContent.style.display = 'none';
-            setTimeout(() => dashboardContent.style.display = 'block', 50);
+        
+        // Hide Loader smoothly
+        if(loader) {
+            loader.classList.add('fade-out');
+            setTimeout(() => { loader.style.display = 'none'; }, 500); // Remove from layout after fade
         }
-    }, 800);
+        
+    }, 3200); // Increased delay slightly to let the loader be seen
 }
 
 // --- MASTER INIT ---
@@ -893,9 +903,17 @@ window.addEventListener('load', () => {
     switchTab('dashboard');
     
     // --- FORCE RESET ON LOAD ---
-    // This ensures checkboxes are all checked even if the browser cached them as unchecked
     resetAllFilters(); 
-    // ---------------------------
+
+    // --- LOADER LOGIC ---
+    const loader = document.getElementById('dashboard-loader');
+    if(loader) {
+        // Keep loader visible for 1.5 seconds on initial load
+        setTimeout(() => {
+            loader.classList.add('fade-out');
+            setTimeout(() => { loader.style.display = 'none'; }, 500);
+        }, 3200);
+    }
 
     updateUpsellCrossSellCard('month');
     renderArrTrendChart();
