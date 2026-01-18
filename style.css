@@ -3800,3 +3800,143 @@ body { /* Styles for the entire page body */
 .filters-toolbar {
     margin-bottom: 0 !important;
 }
+/* ... existing code ... */
+
+/* --- Custom Multi-Select Dropdown Styles --- */
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    flex: 1; /* Allow them to share space */
+    min-width: 140px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* The box you click to open */
+.dropdown-trigger {
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background-color: #ffffff; /* White bg */
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    color: #333;
+    user-select: none;
+    transition: border-color 0.2s;
+}
+
+.dropdown-trigger:hover {
+    border-color: #007bff;
+}
+
+.dropdown-trigger .arrow {
+    font-size: 0.7em;
+    color: #666;
+    margin-left: 10px;
+}
+
+/* The actual dropdown menu */
+.dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 105%;
+    left: 0;
+    width: 220px; /* Wider to fit content */
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    z-index: 1000;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.dropdown-menu.show {
+    display: flex;
+}
+
+/* Search Bar inside Dropdown */
+.dropdown-search-wrapper {
+    position: relative;
+    margin-bottom: 8px;
+}
+
+.dropdown-search-wrapper input {
+    width: 100%;
+    padding: 6px 8px 6px 30px; /* Space for icon */
+    border: 1px solid #007bff; /* Blue border like screenshot */
+    border-radius: 4px;
+    font-size: 0.85em;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.dropdown-search-icon {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 0.8em;
+}
+
+/* Checkbox List */
+.dropdown-list {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dropdown-option {
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+    color: #333;
+    cursor: pointer;
+    padding: 2px 0;
+}
+
+.dropdown-option input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+    accent-color: #007bff; /* Blue checkbox */
+    width: 14px;
+    height: 14px;
+}
+
+/* Footer (Clear / OK) */
+.dropdown-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.clear-btn-text {
+    font-size: 0.85em;
+    color: #007bff;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.clear-btn-text:hover { text-decoration: underline; }
+
+.apply-btn-blue {
+    background-color: #007bff; /* Royal Blue */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 15px;
+    font-size: 0.85em;
+    cursor: pointer;
+}
+
+.apply-btn-blue:hover { background-color: #0056b3; }

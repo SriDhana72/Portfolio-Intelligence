@@ -54,46 +54,130 @@
         </div>
 
         <div class="filters-toolbar">
-            <select class="filter-select" id="globalRegionFilter">
-                <option value="all">All Regions</option>
-                <option value="APAC">APAC</option>
-                <option value="ANZ">ANZ</option>
-                <option value="LATAM">LATAM</option>
-                <option value="INDIA">INDIA</option>
-                <option value="UK">UK</option>
-                <option value="US">US</option>
-            </select>
+            <div class="custom-dropdown" id="region-dropdown">
+                <div class="dropdown-trigger" onclick="toggleCustomDropdown('region-dropdown')">
+                    <span class="selected-text">All Regions</span>
+                    <span class="arrow">&#9660;</span>
+                </div>
+                <div class="dropdown-menu">
+                    <div class="dropdown-search-wrapper">
+                        <i class="bi bi-search dropdown-search-icon"></i>
+                        <input type="text" placeholder="Search..." onkeyup="filterCustomDropdown(this)">
+                    </div>
+                    <div class="dropdown-list">
+                        <label class="dropdown-option">
+                            <input type="checkbox" value="all" checked onchange="toggleCustomSelectAll('region-dropdown', this)"> All
+                        </label>
+                        <label class="dropdown-option"><input type="checkbox" value="APAC" checked> APAC</label>
+                        <label class="dropdown-option"><input type="checkbox" value="ANZ" checked> ANZ</label>
+                        <label class="dropdown-option"><input type="checkbox" value="LATAM" checked> LATAM</label>
+                        <label class="dropdown-option"><input type="checkbox" value="INDIA" checked> INDIA</label>
+                        <label class="dropdown-option"><input type="checkbox" value="UK" checked> UK</label>
+                        <label class="dropdown-option"><input type="checkbox" value="US" checked> US</label>
+                    </div>
+                    <div class="dropdown-footer">
+                        <button class="clear-btn-text" onclick="clearCustomDropdown('region-dropdown')">Clear</button>
+                        <button class="apply-btn-blue" onclick="applyCustomDropdown('region-dropdown')">OK</button>
+                    </div>
+                </div>
+            </div>
 
-            <select class="filter-select" id="buHeadFilter">
-                <option value="all">All BU Heads</option>
-                <option value="hr">HR</option>
-                <option value="marketing">Marketing</option>
-                <option value="finance">Finance</option>
-                <option value="it">IT / Ops</option>
-            </select>
+            <div class="custom-dropdown" id="bu-dropdown">
+                <div class="dropdown-trigger" onclick="toggleCustomDropdown('bu-dropdown')">
+                    <span class="selected-text">All BU Heads</span>
+                    <span class="arrow">&#9660;</span>
+                </div>
+                <div class="dropdown-menu">
+                    <div class="dropdown-search-wrapper">
+                        <i class="bi bi-search dropdown-search-icon"></i>
+                        <input type="text" placeholder="Search..." onkeyup="filterCustomDropdown(this)">
+                    </div>
+                    <div class="dropdown-list">
+                        <label class="dropdown-option"><input type="checkbox" value="all" checked onchange="toggleCustomSelectAll('bu-dropdown', this)"> All</label>
+                        <label class="dropdown-option"><input type="checkbox" value="hr" checked> HR</label>
+                        <label class="dropdown-option"><input type="checkbox" value="marketing" checked> Marketing</label>
+                        <label class="dropdown-option"><input type="checkbox" value="finance" checked> Finance</label>
+                        <label class="dropdown-option"><input type="checkbox" value="it" checked> IT / Ops</label>
+                    </div>
+                    <div class="dropdown-footer">
+                        <button class="clear-btn-text" onclick="clearCustomDropdown('bu-dropdown')">Clear</button>
+                        <button class="apply-btn-blue" onclick="applyCustomDropdown('bu-dropdown')">OK</button>
+                    </div>
+                </div>
+            </div>
 
-            <select class="filter-select">
-                <option value="">All Services</option>
-                <option value="implementation">Implementation</option>
-                <option value="managed">Managed Services</option>
-                <option value="consulting">Consulting</option>
-                <option value="license">License Only</option>
-            </select>
+            <div class="custom-dropdown" id="services-dropdown">
+                <div class="dropdown-trigger" onclick="toggleCustomDropdown('services-dropdown')">
+                    <span class="selected-text">All Services</span>
+                    <span class="arrow">&#9660;</span>
+                </div>
+                <div class="dropdown-menu">
+                    <div class="dropdown-search-wrapper">
+                        <i class="bi bi-search dropdown-search-icon"></i>
+                        <input type="text" placeholder="Search..." onkeyup="filterCustomDropdown(this)">
+                    </div>
+                    <div class="dropdown-list">
+                        <label class="dropdown-option"><input type="checkbox" value="all" checked onchange="toggleCustomSelectAll('services-dropdown', this)"> All</label>
+                        <label class="dropdown-option"><input type="checkbox" value="implementation" checked> Implementation</label>
+                        <label class="dropdown-option"><input type="checkbox" value="managed" checked> Managed Services</label>
+                        <label class="dropdown-option"><input type="checkbox" value="consulting" checked> Consulting</label>
+                        <label class="dropdown-option"><input type="checkbox" value="license" checked> License Only</label>
+                    </div>
+                    <div class="dropdown-footer">
+                        <button class="clear-btn-text" onclick="clearCustomDropdown('services-dropdown')">Clear</button>
+                        <button class="apply-btn-blue" onclick="applyCustomDropdown('services-dropdown')">OK</button>
+                    </div>
+                </div>
+            </div>
 
-            <select class="filter-select">
-                <option value="">All Segments</option>
-                <option value="retail">Retail</option>
-                <option value="smb">Mid Market</option>
-                <option value="enterprise">Enterprise</option>
-            </select>
+            <div class="custom-dropdown" id="segment-dropdown">
+                <div class="dropdown-trigger" onclick="toggleCustomDropdown('segment-dropdown')">
+                    <span class="selected-text">All Segments</span>
+                    <span class="arrow">&#9660;</span>
+                </div>
+                <div class="dropdown-menu">
+                    <div class="dropdown-search-wrapper">
+                        <i class="bi bi-search dropdown-search-icon"></i>
+                        <input type="text" placeholder="Search..." onkeyup="filterCustomDropdown(this)">
+                    </div>
+                    <div class="dropdown-list">
+                        <label class="dropdown-option"><input type="checkbox" value="all" checked onchange="toggleCustomSelectAll('segment-dropdown', this)"> All</label>
+                        <label class="dropdown-option"><input type="checkbox" value="retail" checked> Retail</label>
+                        <label class="dropdown-option"><input type="checkbox" value="smb" checked> Mid Market</label>
+                        <label class="dropdown-option"><input type="checkbox" value="enterprise" checked> Enterprise</label>
+                    </div>
+                    <div class="dropdown-footer">
+                        <button class="clear-btn-text" onclick="clearCustomDropdown('segment-dropdown')">Clear</button>
+                        <button class="apply-btn-blue" onclick="applyCustomDropdown('segment-dropdown')">OK</button>
+                    </div>
+                </div>
+            </div>
 
-            <select class="filter-select">
-                <option value="">All Industries</option>
-                <option value="tech">Technology</option>
-                <option value="finance">Finance</option>
-                <option value="education">Education</option>
-                <option value="healthcare">Healthcare</option>
-            </select>
+             <div class="custom-dropdown" id="industry-dropdown">
+                <div class="dropdown-trigger" onclick="toggleCustomDropdown('industry-dropdown')">
+                    <span class="selected-text">All Industries</span>
+                    <span class="arrow">&#9660;</span>
+                </div>
+                <div class="dropdown-menu">
+                    <div class="dropdown-search-wrapper">
+                        <i class="bi bi-search dropdown-search-icon"></i>
+                        <input type="text" placeholder="Search..." onkeyup="filterCustomDropdown(this)">
+                    </div>
+                    <div class="dropdown-list">
+                        <label class="dropdown-option"><input type="checkbox" value="all" checked onchange="toggleCustomSelectAll('industry-dropdown', this)"> All</label>
+                        <label class="dropdown-option"><input type="checkbox" value="Technology" checked> Technology</label>
+                        <label class="dropdown-option"><input type="checkbox" value="Finance" checked> Finance</label>
+                        <label class="dropdown-option"><input type="checkbox" value="Education" checked> Education</label>
+                        <label class="dropdown-option"><input type="checkbox" value="Healthcare" checked> Healthcare</label>
+                        <label class="dropdown-option"><input type="checkbox" value="Retail" checked> Retail</label>
+                        <label class="dropdown-option"><input type="checkbox" value="SaaS" checked> SaaS</label>
+                    </div>
+                    <div class="dropdown-footer">
+                        <button class="clear-btn-text" onclick="clearCustomDropdown('industry-dropdown')">Clear</button>
+                        <button class="apply-btn-blue" onclick="applyCustomDropdown('industry-dropdown')">OK</button>
+                    </div>
+                </div>
+            </div>
             
             <div class="filter-capsule" id="filterArrCapsule">
                 <span id="arrLessThan5k" class="arr-filter-part">&lt; $5K</span>

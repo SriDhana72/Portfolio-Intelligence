@@ -273,23 +273,57 @@ function updatePaginationControls() {
 function applyAllFilters() {
     let tempFilteredData = [...originalCustomerPortfolioData];
 
-    // 1. Region Filter
-    if (globalRegionFilter) {
-        const selectedRegion = globalRegionFilter.value;
-        if (selectedRegion !== 'all') {
-            tempFilteredData = tempFilteredData.filter(c => c.region === selectedRegion);
+    // --- 1. REGION FILTER (Custom Dropdown) ---
+    const regionDropdown = document.getElementById('region-dropdown');
+    if (regionDropdown) {
+        const totalOptions = regionDropdown.querySelectorAll('.dropdown-list input[type="checkbox"]:not([value="all"])').length;
+        const checkedBoxes = regionDropdown.querySelectorAll('.dropdown-list input[type="checkbox"]:not([value="all"]):checked');
+        const selectedValues = Array.from(checkedBoxes).map(cb => cb.value);
+
+        // If nothing is selected, show nothing. If not all are selected, filter.
+        if (selectedValues.length === 0) {
+            tempFilteredData = []; 
+        } else if (selectedValues.length < totalOptions) {
+            tempFilteredData = tempFilteredData.filter(c => selectedValues.includes(c.region));
         }
     }
+    // --- 2. INDUSTRY FILTER (Custom Dropdown) ---
+    const industryDropdown = document.getElementById('industry-dropdown');
+    if (industryDropdown) {
+        const totalOptions = industryDropdown.querySelectorAll('.dropdown-list input[type="checkbox"]:not([value="all"])').length;
+        const checkedBoxes = industryDropdown.querySelectorAll('.dropdown-list input[type="checkbox"]:not([value="all"]):checked');
+        const selectedValues = Array.from(checkedBoxes).map(cb => cb.value);
 
-    // 2. ARR Capsule Filters
+        if (selectedValues.length === 0) {
+            tempFilteredData = [];
+        } else if (selectedValues.length < totalOptions) {
+            // Checks if customer industry matches any selected checkbox
+            tempFilteredData = tempFilteredData.filter(c => selectedValues.includes(c.industry));
+        }
+    }
+    // --- 3. SERVICES FILTER (Custom Dropdown) ---
+    const servicesDropdown = document.getElementById('services-dropdown');
+    if (servicesDropdown) {
+        const totalOptions = servicesDropdown.querySelectorAll('.dropdown-list input[type="checkbox"]:not([value="all"])').length;
+        const checkedBoxes = servicesDropdown.querySelectorAll('.dropdown-list input[type="checkbox"]:not([value="all"]):checked');
+        const selectedValues = Array.from(checkedBoxes).map(cb => cb.value);
+
+        if (selectedValues.length === 0) {
+            tempFilteredData = [];
+        } else if (selectedValues.length < totalOptions) {
+            // Note: Your current data doesn't have a 'service' field. 
+            // If you add one later, uncomment this line:
+            // tempFilteredData = tempFilteredData.filter(c => selectedValues.includes(c.serviceType));
+        }
+    }
+    // --- 4. ARR CAPSULE FILTER (Existing) ---
     if (arrLessThan5kActive) {
         tempFilteredData = tempFilteredData.filter(c => c.arr < 5000000); 
     } else if (arrGreaterThan5kActive) {
         tempFilteredData = tempFilteredData.filter(c => c.arr >= 5000000);
     }
-    updateArrCapsuleVisuals();
 
-    // 3. Modal Filters
+    // 5. Modal Filters
     const filterRows = filterModalBody.querySelectorAll('.filter-row');
     const activeModalFilters = [];
     filterRows.forEach(row => {
@@ -321,8 +355,7 @@ function applyAllFilters() {
             });
         });
     }
-
-    // 4. Sorting
+    // --- 6. SORTING (Existing) ---
     const column = currentSortColumn;
     const direction = currentSortDirection;
     tempFilteredData.sort((a, b) => {
@@ -337,6 +370,7 @@ function applyAllFilters() {
         }
     });
 
+    // Update State & Render
     filteredCustomerData = tempFilteredData;
     currentPage = 1;
     renderTable();
@@ -863,4 +897,97 @@ window.addEventListener('load', () => {
     updateAccountSummary();
     updateInactiveCount();
     updateHealthBarAndDetails(); 
+});
+/* ==========================================
+   CUSTOM DROPDOWN HELPER FUNCTIONS
+   ========================================== */
+
+// 1. Open/Close Dropdown
+function toggleCustomDropdown(id) {
+    const dropdown = document.getElementById(id);
+    const menu = dropdown.querySelector('.dropdown-menu');
+    
+    // Close any other open dropdowns first
+    document.querySelectorAll('.dropdown-menu').forEach(m => {
+        if(m !== menu) m.classList.remove('show');
+    });
+
+    menu.classList.toggle('show');
+}
+
+// 2. "Select All" Checkbox Logic
+function toggleCustomSelectAll(id, mainCheckbox) {
+    const dropdown = document.getElementById(id);
+    const checkboxes = dropdown.querySelectorAll('.dropdown-list input[type="checkbox"]:not([value="all"])');
+    checkboxes.forEach(cb => {
+        cb.checked = mainCheckbox.checked;
+    });
+}
+
+// 3. Search Bar Logic inside Dropdown
+function filterCustomDropdown(input) {
+    const filter = input.value.toLowerCase();
+    const list = input.closest('.dropdown-menu').querySelector('.dropdown-list');
+    const options = list.querySelectorAll('label');
+
+    options.forEach(option => {
+        const text = option.textContent.toLowerCase();
+        // Always show the "All" option, filter the rest
+        if (text.includes(filter) || option.querySelector('input').value === 'all') {
+            option.style.display = "";
+        } else {
+            option.style.display = "none";
+        }
+    });
+}
+
+// 4. "Clear" Button Logic
+function clearCustomDropdown(id) {
+    const dropdown = document.getElementById(id);
+    const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(cb => cb.checked = false);
+}
+
+// 5. "OK" Button Logic (Updates Title & Triggers Filter)
+function applyCustomDropdown(id) {
+    const dropdown = document.getElementById(id);
+    const triggerText = dropdown.querySelector('.selected-text');
+    const checkboxes = dropdown.querySelectorAll('.dropdown-list input[type="checkbox"]:not([value="all"])');
+    const allCheckbox = dropdown.querySelector('input[value="all"]');
+    
+    let selectedCount = 0;
+    checkboxes.forEach(cb => { if (cb.checked) selectedCount++; });
+
+    // Determine the Title based on ID
+    let title = "Items";
+    if(id.includes('region')) title = "Regions";
+    if(id.includes('bu')) title = "BU Heads";
+    if(id.includes('segment')) title = "Segments";
+    if(id.includes('services')) title = "Services";    // <--- Added
+    if(id.includes('industry')) title = "Industries";  // <--- Added
+
+    // Update the Text displayed on the button
+    if (selectedCount === 0) {
+        triggerText.textContent = `Select ${title}...`;
+        if(allCheckbox) allCheckbox.checked = false;
+    } else if (selectedCount === checkboxes.length) {
+        triggerText.textContent = `All ${title}`;
+        if(allCheckbox) allCheckbox.checked = true;
+    } else {
+        triggerText.textContent = `${selectedCount} ${title}`;
+        if(allCheckbox) allCheckbox.checked = false; 
+    }
+
+    // Close Menu
+    dropdown.querySelector('.dropdown-menu').classList.remove('show');
+
+    // Re-run the main filter function
+    applyAllFilters();
+}
+
+// Close dropdowns if clicking outside
+window.addEventListener('click', function(e) {
+    if (!e.target.closest('.custom-dropdown')) {
+        document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
+    }
 });
