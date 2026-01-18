@@ -21,6 +21,8 @@ body { /* Styles for the entire page body */
     color: #333; /* Default text color */
     padding: 20px; /* Add some padding around the content */
     box-sizing: border-box; /* Include padding in width and height */
+    overflow: hidden; /* Prevents the whole page from moving up */
+    
 }
 .merchant-table th .sort-icons { /* Container for sort icons */
             display: inline-flex; /* Use flexbox for icons */
@@ -82,20 +84,22 @@ body { /* Styles for the entire page body */
     color: #007bff; /* Solid blue for active */
     border-bottom-color: #007bff; /* Solid blue for active */
 }
-/* Styling for the main widget container */
-.widget-container { /* Main content container */
-    background-color: #ffffff; /* White background for the widget */
-    padding: 20px; /* Padding inside */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Softer shadow */
-    text-align: left; /* Align text to the left */
-    width: auto; /* Allow content to dictate width */
-    max-width: 150%; /* Slightly wider for the new element */
-    box-sizing: border-box; /* Include padding in width calculation */
-    position: relative; /* For positioning purposes */
-    left: 0; /* Align to left */
-    margin-top: 40px; 
-    padding-top: 10px;
+.widget-container { 
+    background-color: #ffffff;
+    padding: 0 25px 25px 25px;
+    position: fixed;        /* Locks it to the screen */
+    top: 70px;              /* Starts below your tabs (50px nav + 20px gap) */
+    left: 15px;             
+    right: 15px;            
+    bottom: 20px;
+    border-radius: 20px;           /* Ends 20px from bottom */
+    width: auto;            /* Stretches to fit */
+    height: auto;           
+    overflow-y: auto;       /* Enables scrolling INSIDE this box */
+    margin-top: 0;          /* Removes margin since we use 'top' now */
+    z-index: 50;
+    max-width: none;
+    box-sizing: border-box;
 }
 
 
@@ -3760,7 +3764,7 @@ body { /* Styles for the entire page body */
 /* New sticky wrapper for the toolbar */
 .sticky-filter-wrapper {
     position: sticky;
-    top: 50px; /* Sits directly below your .nav-bar */
+    top: 0; /* Sits directly below your .nav-bar */
     z-index: 900; /* Lower than nav-bar (1000) but higher than content */
     background-color: #f0f2f5; /* Matches the body background to prevent transparency */
     padding-top: 10px;
@@ -3773,15 +3777,18 @@ body { /* Styles for the entire page body */
     margin-bottom: 0 !important; /* Margin is now handled by the wrapper */
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); /* Optional: adds depth when scrolling */
 }
-/* 1. The Sticky Wrapper */
 .sticky-header {
     position: sticky;
-    top: 50px; /* Sits exactly below your .nav-bar */
-    z-index: 950;
-    background-color: #ffffff; /* Must have background to hide scrolling content behind it */
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #e0e0e0; /* Optional: adds a visual line when scrolling */
+    top: 0;
+    z-index: 1000;              
+    background-color: #ffffff;  
+    opacity: 1;                 
+    margin: 0 -25px 20px -25px;   
+    padding: 25px 25px 10px 25px; 
+    width: auto;
+    border-bottom: 1px solid #e0e0e0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 /* 2. Adjust the Nav Bar */
