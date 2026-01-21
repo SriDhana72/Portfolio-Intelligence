@@ -3,15 +3,12 @@
 // ==========================================
 let upsellChart; 
 let crossSellChart; 
-let arrTrendChart; 
 let gmvConversionChart;
 
 const upsellChartCanvas = document.getElementById('upsellChart');
 const upsellCtx = upsellChartCanvas.getContext('2d');
 const crossSellChartCanvas = document.getElementById('crossSellChart');
 const crossSellCtx = crossSellChartCanvas.getContext('2d');
-const arrTrendCanvas = document.getElementById('arrTrendChart');
-const arrTrendCtx = arrTrendCanvas.getContext('2d');
 const gmvConversionChartCanvas = document.getElementById('gmvConversionChartCanvas');
 const gmvConversionCtx = gmvConversionChartCanvas.getContext('2d');
 
@@ -654,17 +651,7 @@ function updateGrowthOpportunitiesCard(type) {
 }
 growthOpportunityFilter.addEventListener('change', (e) => updateGrowthOpportunitiesCard(e.target.value));
 
-// --- Charts (ARR & GMV) ---
-function renderArrTrendChart(period = 'current') {
-    const data = arrTrendData[period];
-    if (arrTrendChart) arrTrendChart.destroy();
-    arrTrendChart = new Chart(arrTrendCtx, {
-        type: 'line',
-        data: { labels: data.labels, datasets: [{ label: 'Current', data: data.currentYear, borderColor: '#007bff', fill: true, backgroundColor: 'rgba(0,123,255,0.1)' }, { label: 'Previous', data: data.previousYear, borderColor: '#6c757d', borderDash: [5,5], fill: false }] },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true, ticks: { callback: v => '$' + v + 'M' } }, x: { grid: { display: false } } } }
-    });
-}
-arrTrendFilter.addEventListener('change', (e) => renderArrTrendChart(e.target.value));
+// --- Charts (GMV) ---
 
 function renderGmvConversionChart() {
     if (gmvConversionChart) gmvConversionChart.destroy();
@@ -866,7 +853,6 @@ tabButtons.forEach(btn => btn.addEventListener('click', (e) => switchTab(e.targe
 window.addEventListener('resize', () => {
     if (dashboardContent.style.display !== 'none') {
         updateUpsellCrossSellCard(upsellCrossSellFilter.value);
-        renderArrTrendChart(arrTrendFilter.value);
         renderGmvConversionChart();
     }
 });
@@ -916,7 +902,6 @@ window.addEventListener('load', () => {
     }
 
     updateUpsellCrossSellCard('month');
-    renderArrTrendChart();
     renderGmvConversionChart();
     updateChurnCard('mtd');
     updateGrowthOpportunitiesCard('upsell');
@@ -989,8 +974,8 @@ function applyCustomDropdown(id) {
     if(id.includes('region')) title = "Regions";
     if(id.includes('bu')) title = "BU Heads";
     if(id.includes('segment')) title = "Segments";
-    if(id.includes('services')) title = "Services";    // <--- Added
-    if(id.includes('industry')) title = "Industries";  // <--- Added
+    if(id.includes('services')) title = "Services";    
+    if(id.includes('industry')) title = "Industries"; 
 
     // Update the Text displayed on the button
     if (selectedCount === 0) {

@@ -4003,3 +4003,158 @@ body { /* Styles for the entire page body */
     50% { transform: translateX(0%); }
     100% { transform: translateX(100%); }
 }
+/* --- Revenue Intelligence (3D Flip Widget) --- */
+
+/* Controls Header */
+.ri-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.ri-controls {
+    display: flex;
+    gap: 8px;
+}
+
+/* Control Elements */
+.ri-control-element {
+    padding: 6px 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: #333;
+    background-color: white;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+.ri-control-element:hover { background-color: #f9fafb; border-color: #d1d5db; }
+
+/* Year Select */
+.ri-year-select {
+    padding-right: 24px;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236b7280%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 8px auto;
+}
+
+/* Toggle Button */
+.ri-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f0f9ff;
+    color: #007bff;
+    border-color: #b3d7ff;
+    font-weight: 600;
+}
+.ri-toggle-btn.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #0056b3;
+}
+
+/* Date Group */
+.ri-date-group {
+    display: flex; align-items: center; gap: 8px; justify-content: flex-end;
+}
+
+/* --- 3D Scene --- */
+.ri-scene {
+    width: 100%;
+    height: 400px; 
+    perspective: 1000px;
+}
+
+.ri-card-flipper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+}
+
+.ri-card-flipper.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.ri-card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Re-adding shadow here */
+    display: flex;
+    flex-direction: column;
+}
+
+.ri-card-face.back {
+    transform: rotateY(180deg);
+}
+
+/* Chart Internals */
+.ri-chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+}
+.ri-chart-title {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #333;
+}
+.ri-chart-legend {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    font-size: 0.75em;
+    color: #666;
+}
+.ri-chart-legend.horizontal {
+    flex-direction: row;
+    gap: 15px;
+}
+.ri-legend-item { display: flex; align-items: center; gap: 6px; }
+.ri-dot { width: 6px; height: 6px; border-radius: 50%; }
+.ri-line-legend { width: 15px; height: 3px; border-radius: 2px; }
+
+/* Canvas */
+.ri-canvas-wrapper {
+    position: relative;
+    flex-grow: 1;
+    width: 100%;
+    min-height: 0;
+}
+.ri-canvas-wrapper canvas {
+    width: 100%; height: 100%;
+}
+
+/* Tooltip */
+#ri-tooltip {
+    position: fixed; /* Fixed to allow breaking out of 3D context */
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.8em;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.1s;
+    z-index: 9999;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border: 1px solid #eee;
+    transform: translate(-50%, -120%);
+}
+#ri-tooltip strong { display: block; margin-bottom: 5px; border-bottom: 1px solid #eee; padding-bottom: 3px; }
+.ri-tooltip-row { display: flex; justify-content: space-between; gap: 15px; margin-bottom: 3px; }

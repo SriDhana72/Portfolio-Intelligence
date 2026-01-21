@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
 <script src="renewalsWidget.js" defer></script>
+<script src="ARRTrends.js"></script>
 </head>
 <body>
     <div class="nav-bar">
@@ -680,20 +681,65 @@
         </div>
 
         <div class="charts-section-wrapper">
-            <div class="arr-trend-section">
-                <div class="arr-trend-header">
-                    <h2 class="text-gray-800 font-bold" style="font-size:1.0em;">ARR Trend Comparison</h2>
-                    <select class="arr-trend-dropdown" id="arrTrendFilter">
-                        <option value="current">Current Year vs. Previous Year</option>
-                        <option value="6months">Last 6 Months</option>
-                        <option value="12months">Last 12 Months</option>
-                        <option value="ytd">Year to Date</option>
-                    </select>
+            <div class="arr-trend-section" style="background: transparent; box-shadow: none; padding: 0; overflow: visible;">
+                
+                <div class="card-header-with-filter" style="background: #fff; padding: 15px 20px; border-radius: 10px 10px 0 0; margin-bottom: 0; border-bottom: 1px solid #f0f0f0;">
+                    <div class="card-title text-black" style="margin:0; font-size:1.1em;"><strong>ARR Analytics</strong></div>
+                    
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <select id="riYearSelect" class="card-filter-select" onchange="handleRiYearChange(this.value)">
+                            <option value="2025" selected>FY 2025</option>
+                            <option value="2024">FY 2024</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+
+                        <button id="riFlipBtn" class="ri-control-element ri-toggle-btn" onclick="toggleRiGraphView()" style="margin:0;">
+                            <span>View Flux</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+                        </button>
+                    </div>
                 </div>
-                <div class="arr-trend-canvas-container">
-                    <canvas id="arrTrendChart"></canvas>
+
+                <div id="riCustomDateRange" style="display: none; background: #fff; padding: 10px 20px; justify-content: flex-end; gap: 10px; border-bottom: 1px solid #f0f0f0;">
+                    <input type="date" id="riStartDate" class="card-filter-select" onchange="setRiCustomRange()">
+                    <span style="color: #666; font-size: 12px; align-self: center;">to</span>
+                    <input type="date" id="riEndDate" class="card-filter-select" onchange="setRiCustomRange()">
+                </div>
+
+                <div class="ri-scene">
+                    <div class="ri-card-flipper" id="riCardFlipper">
+                        
+                        <div class="ri-card-face front" style="border-radius: 0 0 10px 10px; border-top: none;">
+                            <div class="ri-chart-header" style="justify-content: flex-end;">
+                                <div class="ri-chart-legend horizontal">
+                                    <div class="ri-legend-item"><span class="ri-line-legend" style="background: #2563eb; height: 3px;"></span> Current Period</div>
+                                    <div class="ri-legend-item"><span class="ri-line-legend" style="background: #e5e7eb; height: 2px; border: 1px dashed #999;"></span> Previous Period</div>
+                                </div>
+                            </div>
+                            <div class="ri-canvas-wrapper">
+                                <canvas id="riMainChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="ri-card-face back" style="border-radius: 0 0 10px 10px; border-top: none;">
+                            <div class="ri-chart-header" style="justify-content: flex-end;">
+                                <div class="ri-chart-legend">
+                                    <div class="ri-legend-item">Target <span class="ri-line-legend" style="background: repeating-linear-gradient(90deg, #374151, #374151 4px, transparent 4px, transparent 8px)"></span></div>
+                                    <div class="ri-legend-item">Gain <span class="ri-dot" style="background: #10b981"></span></div>
+                                    <div class="ri-legend-item">Loss <span class="ri-dot" style="background: #ef4444"></span></div>
+                                    <div class="ri-legend-item">Cancelled <span class="ri-line-legend" style="background: #f97316; height: 2px;"></span></div>
+                                    <div class="ri-legend-item">Net Stability <span class="ri-line-legend" style="background: repeating-linear-gradient(90deg, #3b82f6, #3b82f6 2px, transparent 2px, transparent 4px)"></span></div>
+                                </div>
+                            </div>
+                            <div class="ri-canvas-wrapper">
+                                <canvas id="riStabilityChart"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
+            <div id="ri-tooltip"></div>
             <div class="gmv-by-industry-section">
                 <div class="gmv-header">
                     <h2 class="text-gray-800 font-bold" style="font-size:1.0em;">Industry wise (ARR & Conversion Rate)</h2>
