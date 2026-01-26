@@ -754,6 +754,143 @@
                 </div>
             </div>
         </div>
+        <div class="dual-widget-row">
+    
+            <div class="wallet-widget">
+                <div class="w-widget-header">
+                    <div class="w-widget-title">
+                        <h3>Wallet & Credits</h3> 
+                    </div>
+                    <a href="#" class="w-header-action">Add Credits</a>
+                </div>
+        
+                <div class="w-kpi-row">
+                    <div class="w-kpi-card">
+                        <span class="w-kpi-label">Available Balance</span>
+                        <div class="w-kpi-value-group">
+                            <span class="w-kpi-value" id="balanceValue">24,500</span>
+                            <span class="w-status-badge w-badge-good">Healthy</span>
+                        </div>
+                        <span class="w-kpi-subtext">Valid until Dec 2026</span>
+                    </div>
+                    <div class="w-kpi-card">
+                        <span class="w-kpi-label">Monthly Burn</span>
+                        <div class="w-kpi-value-group">
+                            <span class="w-kpi-value">3,200</span>
+                            <span class="w-status-badge w-badge-warn" style="color:#8E8E93; background:#F2F2F7;">Avg</span>
+                        </div>
+                        <span class="w-kpi-subtext">+12% vs last mo</span>
+                    </div>
+                    <div class="w-kpi-card">
+                        <span class="w-kpi-label">Est. Runway</span>
+                        <div class="w-kpi-value-group"><span class="w-kpi-value">7.5 Mo</span></div>
+                        <div class="runway-bar-bg"><div class="runway-bar-fill" style="width: 60%;"></div></div>
+                    </div>
+                    </div>
+        
+                <div class="w-split-view" style="grid-template-columns: 1fr; gap: 20px;"> <div class="w-chart-container">
+                        <h4 class="w-section-title">Consumption History</h4>
+                        <div class="w-chart-wrapper" id="usageChart"></div>
+                    </div>
+                    <div class="w-list-container">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                            <h4 class="w-section-title" style="margin:0;">Recent Activity</h4>
+                            <span style="font-size:12px; color:#007AFF; cursor:pointer;">View All</span>
+                        </div>
+                        <div class="usage-list" id="transactionList"></div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="desk-widget">
+        
+                <div class="d-widget-header">
+                    <div class="d-widget-title">
+                        <h3>Desk Overview</h3>
+                    </div>
+                    <div class="header-controls">
+                        <div class="d-multi-select-wrapper" id="deskDeptFilter">
+                            <div class="select-trigger" onclick="toggleDeskDropdown()">
+                                Dept: All
+                            </div>
+                            <div class="d-options-dropdown" id="deskDeptOptions">
+                                <div class="option-item selected" onclick="toggleDeskOption(this)">
+                                    <div class="option-checkbox"></div>
+                                    <span>All Departments</span>
+                                </div>
+                                <div class="option-item selected" onclick="toggleDeskOption(this)">
+                                    <div class="option-checkbox"></div>
+                                    <span>Zoho Sales</span>
+                                </div>
+                                <div class="option-item selected" onclick="toggleDeskOption(this)">
+                                    <div class="option-checkbox"></div>
+                                    <span>Renewals</span>
+                                </div>
+                                <div class="option-item selected" onclick="toggleDeskOption(this)">
+                                    <div class="option-checkbox"></div>
+                                    <span>Presales</span>
+                                </div>
+                                <div class="d-dropdown-footer">
+                                    <button class="d-footer-btn btn-clear" onclick="clearDeskFilter(event)">Clear</button>
+                                    <button class="d-footer-btn btn-ok" onclick="applyDeskFilter(event)">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="d-kpi-row">
+                    <div class="d-kpi-card">
+                        <span class="d-kpi-label">Open Tickets</span>
+                        <div class="d-kpi-value-group">
+                            <span class="d-kpi-value" id="deskOpenTicketsCount">0</span>
+                            <span class="d-trend-badge d-trend-down">▼ 12%</span>
+                        </div>
+                        <span class="d-kpi-subtext">vs previous 30 days</span>
+                    </div>
+        
+                    <div class="d-kpi-card">
+                        <span class="d-kpi-label">Avg Resolution</span>
+                        <div class="d-kpi-value-group">
+                            <span class="d-kpi-value">4.2h</span>
+                            <span class="d-trend-badge d-trend-up">▲ 5%</span>
+                        </div>
+                        <span class="d-kpi-subtext">Faster than avg</span>
+                    </div>
+        
+                    <div class="d-kpi-card">
+                        <span class="d-kpi-label">CSAT Score</span>
+                        <div class="d-kpi-value-group">
+                            <span class="d-kpi-value">4.8</span>
+                            <span class="d-trend-badge d-trend-up" style="background:rgba(52, 199, 89, 0.1); color:#34C759;">★★★★★</span>
+                        </div>
+                        <span class="d-kpi-subtext">Top 10% Tier</span>
+                    </div>
+        
+                    <div class="d-kpi-card">
+                        <span class="d-kpi-label">Revenue Risk</span>
+                        <div class="d-kpi-value-group">
+                            <span class="d-kpi-value" style="color:#FF3B30;" id="deskRiskValue">$0</span>
+                        </div>
+                        <span class="d-kpi-subtext" id="deskRiskDetail" style="color:#1D1D1F; font-weight:500;">...</span>
+                    </div>
+                </div>
+        
+                <div class="d-insight-section" style="grid-template-columns: 1fr; gap: 15px;">
+                    <div class="chart-container">
+                        <h4 class="d-section-title">Volume Trend (6 Months)</h4>
+                        <div class="d-chart-wrapper" id="deskTrendChart"></div>
+                    </div>
+        
+                    <div class="drivers-container">
+                        <h4 class="d-section-title">Top Issues</h4>
+                        <div id="deskDriversList"></div>
+                    </div>
+                </div>
+        
+            </div>
+        
+        </div>
 
         <div class="customer-portfolio-section">
             <div class="customer-portfolio-header">
@@ -1087,5 +1224,7 @@ The Account Team</textarea>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
     <script src="productAdoption.js"></script>
+    <script src="walletCredits.js"></script>
+    <script src="deskIntelligence.js"></script>
 </body>
 </html>

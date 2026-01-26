@@ -4158,3 +4158,553 @@ body { /* Styles for the entire page body */
 }
 #ri-tooltip strong { display: block; margin-bottom: 5px; border-bottom: 1px solid #eee; padding-bottom: 3px; }
 .ri-tooltip-row { display: flex; justify-content: space-between; gap: 15px; margin-bottom: 3px; }
+
+
+/* ==========================================
+   WALLET INTELLIGENCE WIDGET STYLES
+   ========================================== */
+
+   .wallet-widget {
+    /* Scoped Variables for this widget */
+    --w-ios-blue: #007AFF;
+    --w-ios-purple: #AF52DE;
+    --w-ios-indigo: #5856D6;
+    --w-ios-red: #FF3B30;
+    --w-ios-green: #34C759;
+    --w-ios-orange: #FF9500;
+    --w-text-primary: #1D1D1F;
+    --w-text-secondary: #86868B;
+    --w-bg-card: #FFFFFF;
+    --w-border-light: #E5E5EA;
+
+    background: var(--w-bg-card);
+    border-radius: 10px; /* Matched to your dashboard theme */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Matched to dashboard shadow */
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.04);
+    margin-bottom: 25px; /* Spacing below the widget */
+    box-sizing: border-box;
+}
+
+/* Header Section */
+.w-widget-header {
+    padding: 20px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--w-border-light);
+}
+
+.w-widget-title h3 {
+    margin: 0;
+    font-size: 16px; 
+    font-weight: 600;
+    color: #1D1D1F; 
+    letter-spacing: -0.2px;
+}
+
+.w-header-action {
+    font-size: 13px;
+    color: var(--w-ios-blue);
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Metrics Grid */
+.w-kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive Grid */
+    padding: 28px;
+    gap: 20px;
+}
+
+.w-kpi-card {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.w-kpi-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--w-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.w-kpi-value-group {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.w-kpi-value {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: var(--w-text-primary);
+    line-height: 1.1;
+}
+
+.w-status-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.w-badge-good { background: rgba(52, 199, 89, 0.1); color: var(--w-ios-green); }
+.w-badge-warn { background: rgba(255, 149, 0, 0.1); color: var(--w-ios-orange); }
+.w-badge-danger { background: rgba(255, 59, 48, 0.1); color: var(--w-ios-red); }
+
+.w-kpi-subtext {
+    font-size: 12px;
+    color: var(--w-text-secondary);
+    font-weight: 400;
+}
+
+/* Split View Layout */
+.w-split-view {
+    display: grid;
+    grid-template-columns: 1.8fr 1.2fr; 
+    padding: 0 28px 28px 28px;
+    gap: 32px;
+    align-items: start;
+}
+
+/* Responsive adjustment for split view */
+@media (max-width: 900px) {
+    .w-split-view {
+        grid-template-columns: 1fr; /* Stack on smaller screens */
+        gap: 20px;
+    }
+}
+
+/* Renamed to avoid conflict with main dashboard .section-title */
+.w-section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--w-text-primary);
+    margin: 0 0 14px 0;
+    letter-spacing: -0.1px;
+}
+
+/* Chart Wrapper */
+.w-chart-wrapper {
+    width: 100%;
+    height: 180px;
+    position: relative;
+}
+
+/* Usage List Styling */
+.usage-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.usage-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--w-border-light);
+}
+.usage-item:last-child { border-bottom: none; }
+
+.usage-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.usage-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: #F2F2F7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #555;
+}
+
+.usage-details h4 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--w-text-primary);
+}
+.usage-details span {
+    font-size: 11px;
+    color: var(--w-text-secondary);
+}
+
+.usage-amount {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--w-text-primary);
+    text-align: right;
+}
+.usage-amount.negative { color: var(--w-text-primary); }
+.usage-amount.positive { color: var(--w-ios-green); }
+
+/* Progress Bar for Runway */
+.runway-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: #F2F2F7;
+    border-radius: 3px;
+    margin-top: 6px;
+    overflow: hidden;
+}
+.runway-bar-fill {
+    height: 100%;
+    background: var(--w-ios-purple);
+    border-radius: 3px;
+}
+/* ==========================================
+   DUAL WIDGET ROW (Side-by-Side Layout)
+   ========================================== */
+
+   .dual-widget-row {
+    display: flex;
+    gap: 20px; /* Space between the two widgets */
+    margin-bottom: 25px;
+    align-items: stretch; /* Ensures both widgets have equal height */
+    height: 730px;
+}
+
+/* Update Wallet Widget to be flexible */
+.dual-widget-row .wallet-widget {
+    flex: 1; /* Takes up 50% space */
+    max-width: none; /* Removes the 900px limit */
+    margin-bottom: 0; /* Remove bottom margin as the row handles spacing */
+    min-width: 0; /* Prevents flex overflow issues */
+}
+
+/* Placeholder for the New Component */
+.new-component-widget {
+    flex: 1; /* Takes up the other 50% space */
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* Responsive: Stack them on smaller screens */
+@media (max-width: 1100px) {
+    .dual-widget-row {
+        flex-direction: column;
+    }
+    .dual-widget-row .wallet-widget,
+    .new-component-widget {
+        width: 100%;
+        flex: none;
+    }
+}
+.dual-widget-row .wallet-widget,
+.dual-widget-row .desk-widget {
+    height: 100%;       /* Force them to fill the row */
+    overflow: hidden;   /* Cut off anything that sticks out */
+    display: flex;
+    flex-direction: column;
+}
+/* ==========================================
+   DESK INTELLIGENCE WIDGET STYLES
+   ========================================== */
+
+/* Layout fix for Dual Row */
+.dual-widget-row .desk-widget {
+    flex: 1; /* Ensures it takes 50% width */
+    min-width: 0;
+    margin-bottom: 0;
+}
+
+.desk-widget {
+    background: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    overflow: visible; /* Changed to visible for dropdown to pop out */
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Header */
+.d-widget-header {
+    padding: 20px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E5E5EA;
+}
+
+.d-widget-title h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1D1D1F;
+    letter-spacing: -0.2px;
+}
+.w-widget-header, .d-widget-header {
+    padding: 15px 25px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E5E5EA;
+}
+
+/* Custom Multi-Select */
+.d-multi-select-wrapper {
+    position: relative;
+    display: inline-block;
+    user-select: none;
+}
+
+.d-multi-select-wrapper .select-trigger {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #1D1D1F;
+    border: 1px solid #E5E5EA;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.d-multi-select-wrapper .select-trigger:hover {
+    border-color: #C7C7CC;
+    background-color: rgba(0,0,0,0.02);
+}
+
+.d-multi-select-wrapper .select-trigger::after {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 5px;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%226%22%20viewBox%3D%220%200%2010%206%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M1%201L5%205L9%201%22%20stroke%3D%22%2386868B%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    margin-left: 4px;
+}
+
+.d-options-dropdown {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background: #FFFFFF;
+    border: 1px solid #E5E5EA;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    width: 180px;
+    padding: 6px;
+    z-index: 50;
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+}
+.d-options-dropdown.show { display: flex; animation: fadeIn 0.15s ease-out; }
+
+.d-options-dropdown .option-item {
+    padding: 8px 10px;
+    font-size: 13px;
+    color: #1D1D1F;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.d-options-dropdown .option-item:hover { background-color: #F5F5F7; }
+
+.d-options-dropdown .option-checkbox {
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid #C7C7CC;
+    border-radius: 4px;
+    position: relative;
+}
+.d-options-dropdown .option-item.selected .option-checkbox {
+    background-color: #007AFF;
+    border-color: #007AFF;
+}
+.d-options-dropdown .option-item.selected .option-checkbox::after {
+    content: '';
+    position: absolute;
+    top: 1px; left: 4px; width: 3px; height: 7px;
+    border: solid white;
+    border-width: 0 1.5px 1.5px 0;
+    transform: rotate(45deg);
+}
+
+.d-dropdown-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 6px 2px;
+    margin-top: 4px;
+    border-top: 1px solid #E5E5EA;
+}
+.d-footer-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 500; padding: 4px 8px; border-radius: 4px;
+}
+.btn-clear { color: #86868B; }
+.btn-ok { color: #007AFF; font-weight: 600; }
+
+/* Metrics */
+.d-kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 28px;
+    gap: 20px;
+}
+
+.d-kpi-card { display: flex; flex-direction: column; gap: 5px; }
+
+.d-kpi-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #86868B;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.d-kpi-value-group { display: flex; align-items: baseline; gap: 8px; }
+
+.d-kpi-value {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: #1D1D1F;
+    line-height: 1.1;
+}
+
+.d-trend-badge {
+    font-size: 11px; font-weight: 600; padding: 3px 8px;
+    border-radius: 12px; display: inline-flex; align-items: center;
+}
+.d-trend-up { background: rgba(52, 199, 89, 0.1); color: #34C759; }
+.d-trend-down { background: rgba(255, 59, 48, 0.1); color: #FF3B30; }
+
+.d-kpi-subtext { font-size: 12px; color: #86868B; }
+
+/* Insights */
+.d-insight-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr; 
+    padding: 0 28px 28px 28px;
+    gap: 25px;
+    align-items: start;
+}
+
+.d-section-title {
+    font-size: 14px; font-weight: 600; color: #1D1D1F;
+    margin: 0 0 14px 0; letter-spacing: -0.1px;
+}
+
+.d-chart-wrapper { width: 100%; height: 180px; position: relative; }
+
+.d-chart-tooltip {
+    position: absolute;
+    background: rgba(29, 29, 31, 0.95);
+    backdrop-filter: blur(4px);
+    color: #FFF;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 100;
+    transform: translate(-50%, -120%);
+    text-align: center;
+}
+
+/* Drivers */
+.d-driver-info {
+    flex: 1; display: flex; justify-content: space-between; margin-bottom: 5px;
+}
+.d-driver-name { color: #1D1D1F; font-weight: 500; font-size: 11px; }
+.d-driver-pct { color: #86868B; font-weight: 400; font-size: 12px; }
+
+.d-progress-track {
+    width: 100%; height: 5px; background: #F5F5F7;
+    border-radius: 4px; overflow: hidden;
+}
+.d-progress-fill { height: 100%; background: #007AFF; border-radius: 4px; }
+
+@media (max-width: 1200px) {
+    .d-kpi-row { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    .d-insight-section { grid-template-columns: 1fr; }
+}
+/* ==========================================
+   COMPACT MODE OVERRIDES (Reduces Widget Height)
+   ========================================== */
+
+/* 1. Tighter Headers */
+.w-widget-header, .d-widget-header {
+    padding: 12px 20px; /* Reduced from 20px 28px */
+}
+
+/* 2. Compact KPI Rows */
+.w-kpi-row, .d-kpi-row {
+    padding: 15px 20px; /* Reduced from 28px */
+    gap: 15px;
+}
+.w-kpi-value, .d-kpi-value {
+    font-size: 22px; /* Reduced from 26px */
+}
+.w-kpi-label, .d-kpi-label {
+    margin-bottom: 2px;
+}
+
+/* 3. Tighter Split Sections */
+.w-split-view, .d-insight-section {
+    padding: 0 20px 20px 20px; /* Reduced padding */
+    gap: 20px;
+}
+
+/* 4. Reduce Chart Height */
+.w-chart-wrapper, .d-chart-wrapper {
+    height: 130px; /* Reduced from 180px */
+}
+
+/* 5. Compact Lists (Transactions & Drivers) */
+.usage-item {
+    padding: 8px 0; /* Reduced from 12px */
+}
+.usage-icon {
+    width: 28px; height: 28px; /* Smaller icons */
+    font-size: 12px;
+}
+.driver-item {
+    margin-bottom: 10px; /* Reduced from 14px */
+}
+.d-section-title, .w-section-title {
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+/* Push the Desk Chart down slightly */
+.d-chart-wrapper {
+    margin-top: 55px; /* Adds space between title and graph */
+}
+
+/* Optional: Ensure the title doesn't sit too close to the KPIs */
+.d-section-title {
+    margin-top: 30px;
+}
