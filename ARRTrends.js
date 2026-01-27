@@ -1,5 +1,5 @@
 /* ==========================================
-   ARR ANALYTICS (TRENDS) LOGIC - FINAL VISUAL FIX
+   ARR ANALYTICS (TRENDS) LOGIC - UPDATED
    ========================================== */
 
 // --- 1. Mock Data ---
@@ -49,7 +49,7 @@ function setupRiCanvas(canvasId) {
 // Layout Constants
 const CHART_PADDING_TOP = 20;
 const CHART_PADDING_BOTTOM = 30; 
-const CHART_PADDING_LEFT = 50;   
+const CHART_PADDING_LEFT = 60;   // Increased padding for labels
 const CHART_PADDING_RIGHT = 10;
 
 function getRiY(val, max, height) {
@@ -95,7 +95,7 @@ function drawRiSmoothCurve(ctx, dataPoints, width, height, maxVal, minVal = 0, i
 
 // --- 3. Chart Drawing Functions ---
 
-// FRONT FACE
+// FRONT FACE (Trajectory)
 function drawRiMainChart(data) {
     const setup = setupRiCanvas('riMainChart');
     if(!setup) return;
@@ -107,7 +107,7 @@ function drawRiMainChart(data) {
 
     ctx.strokeStyle = '#f0f0f0';
     ctx.lineWidth = 1;
-    ctx.fillStyle = '#9ca3af';
+    ctx.fillStyle = '#6b7280'; // Darker text
     ctx.font = '500 11px Inter, sans-serif';
     ctx.textAlign = 'right';
     ctx.textBaseline = 'middle';
@@ -171,7 +171,7 @@ function drawRiMainChart(data) {
     attachTooltip(canvas, data, width, height, maxVal, 0, false);
 }
 
-// BACK FACE (UPDATED: Thinner Bars, More Spacing)
+// BACK FACE (Flux/Stability) - NOW WITH Y-AXIS LABELS
 function drawRiStabilityChart(data) {
     const setup = setupRiCanvas('riStabilityChart');
     if(!setup) return;
@@ -186,21 +186,46 @@ function drawRiStabilityChart(data) {
 
     ctx.clearRect(0, 0, width, height);
 
-    // Grid
-    ctx.strokeStyle = '#f3f4f6'; ctx.lineWidth = 1;
-    ctx.fillStyle = '#9ca3af'; ctx.font = '500 10px Inter'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    // Setup Text Styles
+    ctx.font = '500 10px Inter'; 
+    ctx.textAlign = 'right'; 
+    ctx.textBaseline = 'middle';
+
+    // 1. Draw Grid & Y-Axis Labels
+    const ySteps = 5;
+    for(let i=0; i <= ySteps; i++) {
+        // Calculate value at this step
+        const t = i / ySteps;
+        const val = minVal + ((maxVal - minVal) * t);
+        const y = getRiYflux(val, maxVal, minVal, height);
+
+        // Draw Line
+        ctx.beginPath();
+        ctx.moveTo(CHART_PADDING_LEFT, y);
+        ctx.lineTo(width - CHART_PADDING_RIGHT, y);
+        ctx.strokeStyle = '#f3f4f6';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Draw Label
+        let text = val.toFixed(2) + 'M';
+        if (val > 0) text = '+' + text;
+        // Optional: Hide 0 if it clashes with the bold zero line, or keep it
+        ctx.fillStyle = '#6b7280'; // Darker Gray
+        ctx.fillText(text, CHART_PADDING_LEFT - 8, y);
+    }
     
-    // Zero line
+    // 2. Draw Bold Zero line
     ctx.save(); 
     ctx.strokeStyle = '#d1d5db'; 
+    ctx.lineWidth = 1;
     ctx.beginPath(); 
     ctx.moveTo(CHART_PADDING_LEFT, yZero); 
     ctx.lineTo(width-CHART_PADDING_RIGHT, yZero); 
     ctx.stroke(); 
     ctx.restore();
 
-    // --- UPDATED BAR CALCULATION ---
-    // Factor 0.2 ensures distinct separate bars (20% of slot on left + 20% on right = 40% total width)
+    // 3. Draw Bars
     const barHalfWidth = ((width - CHART_PADDING_LEFT - CHART_PADDING_RIGHT) / data.labels.length) * 0.2;
 
     data.labels.forEach((label, i) => {
@@ -212,7 +237,6 @@ function drawRiStabilityChart(data) {
         if(hGain > 0) {
             ctx.fillStyle = '#10b981'; 
             ctx.beginPath(); 
-            // x, y, width, height, radii
             ctx.roundRect(centerX - barHalfWidth, yGain, barHalfWidth * 2, hGain, [4, 4, 0, 0]); 
             ctx.fill();
         }
@@ -227,11 +251,14 @@ function drawRiStabilityChart(data) {
             ctx.fill();
         }
 
-        ctx.fillStyle = '#6b7280'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+        // X-Axis Labels
+        ctx.fillStyle = '#6b7280'; 
+        ctx.textAlign = 'center'; 
+        ctx.textBaseline = 'top';
         ctx.fillText(label, centerX, height - CHART_PADDING_BOTTOM + 10);
     });
 
-    // Target Line
+    // 4. Target Line
     ctx.save();
     ctx.strokeStyle = '#374151'; 
     ctx.lineWidth = 2; 
@@ -240,7 +267,7 @@ function drawRiStabilityChart(data) {
     ctx.stroke();
     ctx.restore();
 
-    // Cancelled Line
+    // 5. Cancelled Line
     ctx.save();
     ctx.strokeStyle = '#f97316'; 
     ctx.lineWidth = 2; 
@@ -250,11 +277,11 @@ function drawRiStabilityChart(data) {
     ctx.stroke();
     ctx.restore();
 
-    // Net Stability
+    // 6. Net Stability
     ctx.save();
     ctx.strokeStyle = '#3b82f6'; 
     ctx.lineWidth = 3; 
-    ctx.setLineDash([1, 6]); // Increased spacing for dots
+    ctx.setLineDash([1, 6]); 
     ctx.lineCap = 'round';   
     drawRiSmoothCurve(ctx, data.stability, width, height, maxVal, minVal, true);
     ctx.stroke();

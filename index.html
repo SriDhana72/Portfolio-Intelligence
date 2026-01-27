@@ -193,6 +193,9 @@
                 <span class="separator-bar">|</span>
                 <span id="arrGreaterThan5k" class="arr-filter-part">&gt; $5K</span>
             </div>
+            <button class="modal-config-btn" id="openWidgetConfigBtn" style="margin-left: auto; background: #fff; border: 1px solid #ccc;">
+                <i class="ph ph-sliders-horizontal"></i> Customize View
+            </button>
         </div>
     </header>
 
@@ -400,7 +403,7 @@
         </div>
 
         <div class="cards-container">
-            <div class="card renewal-card">
+            <div class="card renewal-card" id="widget-renewal">
                 
                 <div class="renewal-header">
                     <div>
@@ -473,7 +476,7 @@
                 </div>
             </div>
 
-            <div class="card slide-up">
+            <div class="card slide-up" id="widget-upsell">
                 <div class="card-header-with-filter">
                     <div class="card-title text-black"> <strong>Upsell & Cross-sell</strong></div>
                     <select class="card-filter-select" id="upsellCrossSellFilter">
@@ -519,7 +522,7 @@
                 </div>
             </div>
 
-            <div class="card pa-wrapper-card slide-up">
+            <div class="card pa-wrapper-card slide-up" id="widget-adoption">
                 <div class="pa-widget-container">
                     <div class="pa-header-row">
                         <span class="pa-app-title">Product Adoption</span>
@@ -551,7 +554,7 @@
                 </div>
             </div>
 
-            <div class="card portfolio-health-apple slide-up">
+            <div class="card portfolio-health-apple slide-up" id="widget-health">
                 <div class="widget-header">
                     <div class="header-title-group">
                         <div class="card-title text-black" style="margin:0;"><strong>Portfolio Health</strong></div>
@@ -640,7 +643,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card" id="widget-churn">
                 <div class="card-header-with-filter" style="justify-content: space-between; align-items: center;">
                     
                     <div style="display: flex; align-items: center; gap: 25px;">
@@ -681,7 +684,7 @@
         </div>
 
         <div class="charts-section-wrapper">
-            <div class="arr-trend-section" style="background: transparent; box-shadow: none; padding: 0; overflow: visible;">
+            <div class="arr-trend-section" id="widget-arr-trends" style="background: transparent; box-shadow: none; padding: 0; overflow: visible;">
                 
                 <div class="card-header-with-filter" style="background: #fff; padding: 15px 20px; border-radius: 10px 10px 0 0; margin-bottom: 0; border-bottom: 1px solid #f0f0f0;">
                     <div class="card-title text-black" style="margin:0; font-size:1.1em;"><strong>ARR Analytics</strong></div>
@@ -740,7 +743,7 @@
                 </div>
             </div>
             <div id="ri-tooltip"></div>
-            <div class="gmv-by-industry-section">
+            <div class="gmv-by-industry-section" id="widget-gmv">
                 <div class="gmv-header">
                     <h2 class="text-gray-800 font-bold" style="font-size:1.0em;">Industry wise (ARR & Conversion Rate)</h2>
                     <select class="gmv-dropdown">
@@ -756,7 +759,7 @@
         </div>
         <div class="wallet-section-wrapper">
     
-            <div class="wallet-widget card">
+            <div class="wallet-widget card" id="widget-wallet">
                 <div class="wallet-widget-header">
                     <div class="wallet-widget-title">
                         <h2 class="text-gray-800 font-bold" style="font-size:1.0em; margin:0;">Wallet & Credits</h2>
@@ -823,7 +826,7 @@
                 </div>
             </div>
         
-            <div class="desk-widget card">
+            <div class="desk-widget card" id="widget-desk">
         
                 <div class="desk-widget-header">
                     <div class="desk-widget-title">
@@ -955,7 +958,7 @@
         </div>
 
         <div class="side-by-side-sections">
-            <div class="action-items-section">
+            <div class="action-items-section" id="widget-actions">
                 <div class="action-items-header">
                     <h2 class="text-gray-800 font-bold" style="font-size:1.0em;">Action Items</h2>
                     <span class="pending-badge">3 pending</span>
@@ -989,7 +992,7 @@
                 <a href="#" class="view-all-link">View All Action Items</a>
             </div>
 
-            <div class="growth-opportunities-section">
+            <div class="growth-opportunities-section" id="widget-growth">
                 <div class="growth-opportunities-header">
                     <div class="growth-opportunities-header-content">
                         <h2 class="text-gray-800 font-bold" style="font-size:1.0em;">Growth Opportunities</h2>
@@ -1004,7 +1007,7 @@
                 <a href="#" class="view-all-link">View All Opportunities</a>
             </div>
 
-            <div class="at-risk-merchants-section">
+            <div class="at-risk-merchants-section" id="widget-at-risk">
                 <div class="at-risk-merchants-header">
                     <h2 class="text-gray-800 font-bold" style="font-size:1.0em;">At-Risk Accounts</h2>
                     <span class="merchants-badge">4 accounts</span>
@@ -1242,11 +1245,29 @@ The Account Team</textarea>
     </div>
 
     <div id="toast" class="toast">Campaign sent successfully! 🚀</div>
+    <div id="widgetConfigModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2>Customize Dashboard</h2>
+                <span class="modal-close-btn" id="closeWidgetConfigBtn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">Select the components you want to see. The layout will adjust automatically.</p>
+                <div id="widgetToggleList" class="widget-toggle-list">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button class="clear-all-btn" id="resetWidgetsBtn">Reset to Default</button>
+                <button class="apply-filters-btn" id="saveWidgetsBtn">Save Changes</button>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
     <script src="productAdoption.js"></script>
     <script src="walletCredits.js"></script>
     <script src="deskOverview.js"></script>
+    <script src="widgetConfig.js"></script>
 </body>
 </html>

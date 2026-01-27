@@ -3284,20 +3284,17 @@ body { /* Styles for the entire page body */
 
 .pa-insight-section {
     position: relative;
-    /* FIXED HEIGHT: Prevents the component from expanding/collapsing */
     height: 360px; 
     width: 100%;
     overflow: hidden; /* Hides the cards when they slide off-screen */
 }
 
 .pa-card-container {
-    /* ABSOLUTE POSITION: Forces cards to overlap perfectly */
     position: absolute; 
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* BACKGROUND: Vital to ensure you don't see one card through another */
     background: #fff; 
     transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
 }
@@ -3402,7 +3399,6 @@ body { /* Styles for the entire page body */
 /* Reset margins on the circle so it aligns perfectly in the flex row */
 .at-risk-health-score-circle {
     margin: 0 !important; /* Remove old margins */
-    /* Ensure other properties remain */
     width: 31px;
     height: 31px;
     border-radius: 50%;
@@ -3418,7 +3414,7 @@ body { /* Styles for the entire page body */
 
 /* Update sub-info to remove the 'Health:' text part if you only want the metric */
 .at-risk-sub-info {
-    display: block; /* Ensure it sits on its own line */
+    display: block;
     font-size: 0.85em;
     color: #dc3545;
     font-weight: 400;
@@ -3452,7 +3448,7 @@ body { /* Styles for the entire page body */
 }
 
 .driver-info {
-    width: 140px; /* Fixed width for labels */
+    width: 140px; 
     flex-shrink: 0;
     color: #333;
     font-weight: 500;
@@ -3470,7 +3466,6 @@ body { /* Styles for the entire page body */
 .driver-bar-fill {
     height: 100%;
     border-radius: 3px;
-    /* Gradient Red to Orange based on severity */
     background: linear-gradient(90deg, #ff8f8f, #dc3545); 
 }
 
@@ -3487,14 +3482,14 @@ body { /* Styles for the entire page body */
     font-size: 0.8em;
 }
 .trend-up { color: #dc3545; } /* Red arrow up = bad for churn */
-.trend-down { color: #28a745; } /* Green arrow down = good */
+.trend-down { color: #28a745; } /* Green arrow down = good for churn */
 .trend-flat { color: #999; }
 /* --- Modal Configure Button --- */
 .modal-config-btn {
     display: flex;
     align-items: center;
     gap: 6px;
-    background-color: #f8f9fa; /* Light background */
+    background-color: #f8f9fa; 
     border: 1px solid #e0e0e0;
     border-radius: 6px;
     padding: 5px 10px;
@@ -3512,7 +3507,7 @@ body { /* Styles for the entire page body */
 }
 
 .modal-config-btn i {
-    font-size: 0.9em; /* Ensure icon isn't too large */
+    font-size: 0.9em;
 }
 /* --- Renewals Widget Styles --- */
 
@@ -3521,7 +3516,6 @@ body { /* Styles for the entire page body */
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    /* Ensure it matches other cards height */
     min-height: 380px; 
 }
 
@@ -3529,7 +3523,7 @@ body { /* Styles for the entire page body */
 .renewal-header {
     padding: 15px 20px;
     border-bottom: 1px solid #f1f5f9;
-    background-color: #f8fafc;
+    background-color: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -3800,7 +3794,6 @@ body { /* Styles for the entire page body */
 .filters-toolbar {
     margin-bottom: 0 !important;
 }
-/* ... existing code ... */
 
 /* --- Custom Multi-Select Dropdown Styles --- */
 .custom-dropdown {
@@ -4569,7 +4562,7 @@ body { /* Styles for the entire page body */
     .desk-insight-section { grid-template-columns: 1fr; }
 }
 /* ==========================================
-   FIX FOR DESK WIDGET DRIVERS
+   DESK WIDGET DRIVERS
    ========================================== */
 
 /* Container for each item */
@@ -4616,5 +4609,167 @@ body { /* Styles for the entire page body */
     background: #007AFF; 
     border-radius: 3px; 
 }
+/* ==========================================
+   WIDGET CONFIGURATION MODAL 
+   ========================================== */
 
+/* 1. Main Container - Flex Layout */
+#widgetConfigModal .modal-content {
+    width: 400px;
+    max-width: 90vw;
+    /* Fixed height limits relative to screen */
+    height: auto;
+    max-height: 72vh; 
+    padding: 0; /* Remove padding here, we add it to sections */
+    border-radius: 16px; /* Smooth rounded corners */
+    overflow: hidden; /* Hide overflow so corners stay round */
+    display: flex; 
+    flex-direction: column; /* Stack: Header -> Body -> Footer */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+/* 2. Header (Fixed at Top) */
+#widgetConfigModal .modal-header {
+    padding: 18px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fff;
+    flex-shrink: 0; /* Never shrink */
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#widgetConfigModal .modal-header h2 {
+    font-size: 1.15em;
+    margin: 0;
+    color: #1d1d1f;
+}
+
+/* 3. Body (Scrollable Middle) */
+#widgetConfigModal .modal-body {
+    padding: 0; /* Reset padding */
+    overflow-y: auto; /* Only this part scrolls */
+    flex-grow: 1; /* Take up all available space */
+    background: #fff;
+    /* Smooth scrolling */
+    -webkit-overflow-scrolling: touch; 
+    gap:0px;
+}
+
+/* The Intro Text */
+#widgetConfigModal .modal-body p {
+    padding: 4px 24px 5px 24px;
+    margin: 0;
+    font-size: 0.9em;
+    color: #86868b;
+}
+
+/* The List Container */
+.widget-toggle-list {
+    padding: 5px 24px 20px 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 4. List Items (Clean Alignment) */
+.widget-toggle-item {
+    display: flex;
+    justify-content: space-between; /* Push Text Left, Switch Right */
+    align-items: center; /* Vertical Center */
+    padding: 10px 0; /* More breathing room */
+    border-bottom: 1px solid #f5f5f7;
+    background: transparent;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+
+.widget-toggle-item:last-child {
+    border-bottom: none;
+}
+
+.widget-toggle-label {
+    font-size: 0.95em;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+/* 5. Footer (Fixed at Bottom) */
+#widgetConfigModal .modal-footer {
+    padding: 15px 24px;
+    border-top: 1px solid #f0f0f0;
+    background-color: #fafafa; /* Slight contrast */
+    flex-shrink: 0; /* Never shrink */
+    display: flex;
+    justify-content: flex-end; /* Align buttons right */
+    align-items: center;
+    gap: 12px;
+    margin-top: 0;
+}
+
+/* Footer Buttons */
+#widgetConfigModal .modal-footer button {
+    font-size: 0.9em;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+/* Reset Button */
+#resetWidgetsBtn {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    color: #555;
+}
+#resetWidgetsBtn:hover {
+    background: #f5f5f5;
+    border-color: #d0d0d0;
+    color: #333;
+}
+
+/* Save Button */
+#saveWidgetsBtn {
+    background: #007aff; /* Apple Blue */
+    border: 1px solid #007aff;
+    color: #fff;
+    font-weight: 600;
+}
+#saveWidgetsBtn:hover {
+    background: #0062cc;
+    border-color: #0062cc;
+    box-shadow: 0 2px 5px rgba(0, 122, 255, 0.3);
+}
+
+/* Toggle Switch Styling (Refined) */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 24px;
+    flex-shrink: 0;
+}
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+    position: absolute; cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #e5e5ea;
+    transition: .3s;
+    border-radius: 24px;
+}
+.slider:before {
+    position: absolute; content: "";
+    height: 20px; width: 20px;
+    left: 2px; bottom: 2px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+input:checked + .slider { background-color: #34c759; } /* Green for Active */
+input:checked + .slider:before { transform: translateX(18px); }
 
