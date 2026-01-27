@@ -635,8 +635,6 @@ document.getElementById('analyzeChurnBtn').addEventListener('click', () => {
     churnAnalysisModal.classList.add('show-flex');
 });
 document.getElementById('closeChurnAnalysisModalBtn').addEventListener('click', () => churnAnalysisModal.classList.remove('show-flex'));
-document.getElementById('closeChurnAnalysisModalFooterBtn').addEventListener('click', () => churnAnalysisModal.classList.remove('show-flex'));
-
 // --- Growth Opportunities ---
 function updateGrowthOpportunitiesCard(type) {
     const data = type === 'upsell' ? upsellOpportunitiesData : crossSellOpportunitiesData;

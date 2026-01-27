@@ -29,7 +29,7 @@ const deskData = {
 // 2. Initialization
 function initDeskDashboard(data) {
     const openTicketsEl = document.getElementById('deskOpenTicketsCount');
-    if(!openTicketsEl) return; // Guard clause
+    if(!openTicketsEl) return; 
 
     // KPI
     openTicketsEl.textContent = data.openTickets;
@@ -43,10 +43,10 @@ function initDeskDashboard(data) {
     // --- CHART RENDERING ---
     renderDeskChart(data.volumeTrend);
 
-    // --- DRIVERS RENDER ---
+    // --- DRIVERS RENDER (UPDATED LAYOUT) ---
     const driversHTML = data.topDrivers.map(d => `
-        <div style="margin-bottom: 16px;">
-            <div class="driver-info">
+        <div class="d-driver-row">
+            <div class="d-driver-header-flex">
                 <span class="d-driver-name">${d.name}</span>
                 <span class="d-driver-pct">${d.pct}%</span>
             </div>

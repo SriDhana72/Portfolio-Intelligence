@@ -754,66 +754,87 @@
                 </div>
             </div>
         </div>
-        <div class="dual-widget-row">
+        <div class="wallet-section-wrapper">
     
-            <div class="wallet-widget">
-                <div class="w-widget-header">
-                    <div class="w-widget-title">
-                        <h3>Wallet & Credits</h3> 
+            <div class="wallet-widget card">
+                <div class="wallet-widget-header">
+                    <div class="wallet-widget-title">
+                        <h2 class="text-gray-800 font-bold" style="font-size:1.0em; margin:0;">Wallet & Credits</h2>
                     </div>
-                    <a href="#" class="w-header-action">Add Credits</a>
+                    <a href="#" class="wallet-header-action">Add Credits</a>
                 </div>
         
-                <div class="w-kpi-row">
-                    <div class="w-kpi-card">
-                        <span class="w-kpi-label">Available Balance</span>
-                        <div class="w-kpi-value-group">
-                            <span class="w-kpi-value" id="balanceValue">24,500</span>
-                            <span class="w-status-badge w-badge-good">Healthy</span>
+                <div class="wallet-kpi-row">
+                    <div class="wallet-kpi-card">
+                        <span class="wallet-kpi-label">Available Balance</span>
+                        <div class="wallet-kpi-value-group">
+                            <span class="wallet-kpi-value" id="balanceValue">0</span>
+                            <span class="wallet-status-badge badge-good">Healthy</span>
                         </div>
-                        <span class="w-kpi-subtext">Valid until Dec 2026</span>
-                    </div>
-                    <div class="w-kpi-card">
-                        <span class="w-kpi-label">Monthly Burn</span>
-                        <div class="w-kpi-value-group">
-                            <span class="w-kpi-value">3,200</span>
-                            <span class="w-status-badge w-badge-warn" style="color:#8E8E93; background:#F2F2F7;">Avg</span>
-                        </div>
-                        <span class="w-kpi-subtext">+12% vs last mo</span>
-                    </div>
-                    <div class="w-kpi-card">
-                        <span class="w-kpi-label">Est. Runway</span>
-                        <div class="w-kpi-value-group"><span class="w-kpi-value">7.5 Mo</span></div>
-                        <div class="runway-bar-bg"><div class="runway-bar-fill" style="width: 60%;"></div></div>
-                    </div>
+                        <span class="wallet-kpi-subtext">Credits valid until Dec 2026</span>
                     </div>
         
-                <div class="w-split-view" style="grid-template-columns: 1fr; gap: 20px;"> <div class="w-chart-container">
-                        <h4 class="w-section-title">Consumption History</h4>
-                        <div class="w-chart-wrapper" id="usageChart"></div>
+                    <div class="wallet-kpi-card">
+                        <span class="wallet-kpi-label">Monthly Burn</span>
+                        <div class="wallet-kpi-value-group">
+                            <span class="wallet-kpi-value">3,200</span>
+                            <span class="wallet-status-badge badge-warn" style="color:#8E8E93; background:#F2F2F7;">Avg</span>
+                        </div>
+                        <span class="wallet-kpi-subtext">+12% vs last month</span>
                     </div>
-                    <div class="w-list-container">
+        
+                    <div class="wallet-kpi-card">
+                        <span class="wallet-kpi-label">Est. Runway</span>
+                        <div class="wallet-kpi-value-group">
+                            <span class="wallet-kpi-value">7.5 Mo</span>
+                        </div>
+                        <div class="runway-bar-bg">
+                            <div class="runway-bar-fill" style="width: 60%;"></div>
+                        </div>
+                        <span class="wallet-kpi-subtext" style="margin-top:4px;">Safe zone (> 3 months)</span>
+                    </div>
+        
+                    <div class="wallet-kpi-card">
+                        <span class="wallet-kpi-label">Expiring Soon</span>
+                        <div class="wallet-kpi-value-group">
+                            <span class="wallet-kpi-value" style="color:#1D1D1F;">0</span>
+                        </div>
+                        <span class="wallet-kpi-subtext">No credits expiring in 30 days</span>
+                    </div>
+                </div>
+        
+                <div class="wallet-split-view">
+                    
+                    <div class="wallet-chart-container">
+                        <h4 class="wallet-section-title">Consumption History (6 Months)</h4>
+                        <div class="wallet-chart-wrapper" id="usageChart">
+                            </div>
+                    </div>
+        
+                    <div class="wallet-list-container">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                            <h4 class="w-section-title" style="margin:0;">Recent Activity</h4>
+                            <h4 class="wallet-section-title" style="margin:0;">Recent Activity</h4>
                             <span style="font-size:12px; color:#007AFF; cursor:pointer;">View All</span>
                         </div>
-                        <div class="usage-list" id="transactionList"></div>
+                        
+                        <div class="wallet-usage-list" id="transactionList">
+                            </div>
                     </div>
                 </div>
             </div>
         
-            <div class="desk-widget">
+            <div class="desk-widget card">
         
-                <div class="d-widget-header">
-                    <div class="d-widget-title">
-                        <h3>Desk Overview</h3>
+                <div class="desk-widget-header">
+                    <div class="desk-widget-title">
+                        <h2 class="text-gray-800 font-bold" style="font-size:1.0em; margin:0;">Desk Overview</h2>
                     </div>
-                    <div class="header-controls">
-                        <div class="d-multi-select-wrapper" id="deskDeptFilter">
-                            <div class="select-trigger" onclick="toggleDeskDropdown()">
+                    <div class="desk-header-controls">
+                        <div class="desk-multi-select-wrapper" id="deskDeptFilter">
+                            <div class="desk-select-trigger select-trigger" onclick="toggleDeskDropdown()">
                                 Dept: All
                             </div>
-                            <div class="d-options-dropdown" id="deskDeptOptions">
+                            <div class="desk-options-dropdown" id="deskDeptOptions">
                                 <div class="option-item selected" onclick="toggleDeskOption(this)">
                                     <div class="option-checkbox"></div>
                                     <span>All Departments</span>
@@ -830,21 +851,25 @@
                                     <div class="option-checkbox"></div>
                                     <span>Presales</span>
                                 </div>
-                                <div class="d-dropdown-footer">
-                                    <button class="d-footer-btn btn-clear" onclick="clearDeskFilter(event)">Clear</button>
-                                    <button class="d-footer-btn btn-ok" onclick="applyDeskFilter(event)">OK</button>
+                                <div class="option-item selected" onclick="toggleDeskOption(this)">
+                                    <div class="option-checkbox"></div>
+                                    <span>Other</span>
+                                </div>
+                                <div class="desk-dropdown-footer">
+                                    <button class="footer-btn btn-clear" onclick="clearDeskFilter(event)">Clear</button>
+                                    <button class="footer-btn btn-ok" onclick="applyDeskFilter(event)">OK</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
         
-                <div class="d-kpi-row">
+                <div class="desk-kpi-row">
                     <div class="d-kpi-card">
                         <span class="d-kpi-label">Open Tickets</span>
                         <div class="d-kpi-value-group">
                             <span class="d-kpi-value" id="deskOpenTicketsCount">0</span>
-                            <span class="d-trend-badge d-trend-down">▼ 12%</span>
+                            <span class="d-trend-badge trend-down">▼ 12%</span>
                         </div>
                         <span class="d-kpi-subtext">vs previous 30 days</span>
                     </div>
@@ -853,16 +878,16 @@
                         <span class="d-kpi-label">Avg Resolution</span>
                         <div class="d-kpi-value-group">
                             <span class="d-kpi-value">4.2h</span>
-                            <span class="d-trend-badge d-trend-up">▲ 5%</span>
+                            <span class="d-trend-badge trend-up">▲ 5%</span>
                         </div>
-                        <span class="d-kpi-subtext">Faster than avg</span>
+                        <span class="d-kpi-subtext">Faster than average</span>
                     </div>
         
                     <div class="d-kpi-card">
                         <span class="d-kpi-label">CSAT Score</span>
                         <div class="d-kpi-value-group">
                             <span class="d-kpi-value">4.8</span>
-                            <span class="d-trend-badge d-trend-up" style="background:rgba(52, 199, 89, 0.1); color:#34C759;">★★★★★</span>
+                            <span class="d-trend-badge trend-up" style="background:rgba(52, 199, 89, 0.1); color:#34C759;">★★★★★</span>
                         </div>
                         <span class="d-kpi-subtext">Top 10% Tier</span>
                     </div>
@@ -872,17 +897,17 @@
                         <div class="d-kpi-value-group">
                             <span class="d-kpi-value" style="color:#FF3B30;" id="deskRiskValue">$0</span>
                         </div>
-                        <span class="d-kpi-subtext" id="deskRiskDetail" style="color:#1D1D1F; font-weight:500;">...</span>
+                        <span class="d-kpi-subtext" id="deskRiskDetail" style="color:#1D1D1F; font-weight:500;">Loading...</span>
                     </div>
                 </div>
         
-                <div class="d-insight-section" style="grid-template-columns: 1fr; gap: 15px;">
-                    <div class="chart-container">
+                <div class="desk-insight-section">
+                    <div class="d-chart-container">
                         <h4 class="d-section-title">Volume Trend (6 Months)</h4>
                         <div class="d-chart-wrapper" id="deskTrendChart"></div>
                     </div>
         
-                    <div class="drivers-container">
+                    <div class="d-drivers-container">
                         <h4 class="d-section-title">Top Issues</h4>
                         <div id="deskDriversList"></div>
                     </div>
@@ -1109,7 +1134,7 @@
                 <span class="modal-close-btn" id="closeChurnAnalysisModalBtn">×</span>
             </div>
             <div class="modal-body">
-                <h3> Overview of Churned Accounts</h3>
+                <h3>Overview of Churned Accounts</h3>
                 <p>This report provides a deeper look into accounts that have churned recently.</p>
                 <div class="detail-item">
                     <span class="label"><span class="churn-icon red">👤</span> Total Churned Accounts:</span>
@@ -1134,9 +1159,6 @@
                     <li><strong style="font-weight: 600;">Zoho Books:</strong> High incidence of delayed payments or unlinked invoicing.</li>
                     <li><strong style="font-weight: 600;">Zoho Desk:</strong> Limited use of helpdesk features.</li>
                 </ul>
-            </div>
-            <div class="modal-footer" style="justify-content: center;">
-                 <button class="clear-all-btn" id="closeChurnAnalysisModalFooterBtn">Close</button>
             </div>
         </div>
     </div>
@@ -1225,6 +1247,6 @@ The Account Team</textarea>
     <script src="script.js"></script>
     <script src="productAdoption.js"></script>
     <script src="walletCredits.js"></script>
-    <script src="deskIntelligence.js"></script>
+    <script src="deskOverview.js"></script>
 </body>
 </html>
