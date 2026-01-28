@@ -762,10 +762,7 @@
     
             <div class="wallet-widget card" id="widget-wallet">
                 <div class="wallet-widget-header">
-                    <div class="wallet-widget-title">
-                        <h2 class="text-gray-800 font-bold" style="font-size:1.0em; margin:0;">Wallet & Credits</h2>
-                    </div>
-                    <a href="#" class="wallet-header-action">Add Credits</a>
+                    <h2 class="text-gray-800 font-bold" style="font-size:1.0em; margin:0;">Wallet & Credits</h2>
                 </div>
         
                 <div class="wallet-kpi-row">
@@ -959,98 +956,109 @@
         </div>
 
         <div class="side-by-side-sections">
-            <div class="action-items-section" id="widget-actions">
-                <div class="action-items-header">
-                    <h2 class="text-gray-800 font-bold" style="font-size:1.0em;">Action Items</h2>
-                    <span class="pending-badge">3 pending</span>
+            <div class="action-items-section" id="widget-actions" style="padding: 0; overflow: hidden;">
+    
+                <div class="card-header">
+                    <div class="header-title">
+                        <h2>Action Items</h2>
+                    </div>
+                    <div class="badge-pending">3 pending</div>
                 </div>
-                <div class="action-items-grid">
-                    <div class="action-item-card danger">
-                        <span class="action-item-icon">&#9888;</span>
-                        <div class="action-item-content">
-                            <div class="action-item-title">Contract Renewal: Fashion Retail Co.</div>
-                            <div class="action-item-description">Due in 5 days</div>
-                            <button class="action-item-button">Schedule Call</button>
+                
+                <div class="action-list">
+                    
+                    <div class="action-item">
+                        <div class="icon-box urgent">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                         </div>
-                    </div>
-                    <div class="action-item-card warning">
-                        <span class="action-item-icon">&#9888;</span>
-                        <div class="action-item-content">
-                            <div class="action-item-title">Payment Failures: HealthTech Solutions</div>
-                            <div class="action-item-description">3.5% increase in failures</div>
-                            <button class="action-item-button yellow">Investigate</button>
+                        <div class="action-details">
+                            <div class="action-title">Contract Renewal: Fashion Retail Co.</div>
+                            <div class="action-meta">
+                                <span class="meta-urgent">Due in 5 days</span>
+                            </div>
                         </div>
+                        <button class="action-btn btn-blue">Schedule Call</button>
                     </div>
-                    <div class="action-item-card info">
-                        <span class="action-item-icon">&#9998;</span>
-                        <div class="action-item-content">
-                            <div class="action-item-title">EBR Preparation: Global SaaS Inc.</div>
-                            <div class="action-item-description">Scheduled for next week</div>
-                            <button class="action-item-button" onclick="switchTab('qbrdeck')">Prepare Report</button>
+            
+                    <div class="action-item">
+                        <div class="icon-box warning">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                         </div>
+                        <div class="action-details">
+                            <div class="action-title">Payment Failures: HealthTech Solutions</div>
+                            <div class="action-meta">
+                                <span>3.5% increase in failures</span>
+                            </div>
+                        </div>
+                        <button class="action-btn btn-amber">Investigate</button>
                     </div>
+            
+                    <div class="action-item">
+                        <div class="icon-box info">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+                        </div>
+                        <div class="action-details">
+                            <div class="action-title">EBR Preparation: Global SaaS Inc.</div>
+                            <div class="action-meta">
+                                <span>Scheduled for next week</span>
+                            </div>
+                        </div>
+                        <button class="action-btn btn-blue" onclick="switchTab('qbrdeck')">Prepare Report</button>
+                    </div>
+            
                 </div>
-                <a href="#" class="view-all-link">View All Action Items</a>
+            
+                <div class="card-footer-view">
+                     <button class="view-all-btn">
+                         View All Items 
+                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                     </button>
+                </div>
             </div>
 
-            <div class="growth-opportunities-section" id="widget-growth">
-                <div class="growth-opportunities-header">
-                    <div class="growth-opportunities-header-content">
-                        <h2 class="text-gray-800 font-bold" style="font-size:1.0em;">Growth Opportunities</h2>
-                        <select class="card-filter-select" id="growthOpportunityFilter">
+            <div class="growth-opportunities-section" id="widget-growth" style="padding: 0; overflow: hidden;">
+
+                <div class="card-header">
+                    <div class="header-title" style="display: flex; align-items: center; gap: 10px;">
+                        <h2>Growth Opportunities</h2>
+                        <select id="growthOpportunityFilter" style="border: 1px solid #e2e8f0; border-radius: 6px; padding: 2px 6px; font-size: 0.8em; color: #64748b; outline: none;">
                             <option value="upsell">Upsell</option>
                             <option value="cross-sell">Cross-sell</option>
                         </select>
                     </div>
-                    <span class="identified-badge" id="growthOpportunitiesBadge">3 identified</span>
+                    <div class="badge-pending" style="color: #15803d; background: #dcfce7; border-color: #bbf7d0;">
+                        3 identified
+                    </div>
                 </div>
-                <div class="opportunities-grid" id="opportunitiesGrid"></div>
-                <a href="#" class="view-all-link">View All Opportunities</a>
+                
+                <div class="action-list" id="opportunitiesGrid">
+                    </div>
+            
+                <div class="card-footer-view">
+                     <button class="view-all-btn">
+                         View All Opportunities 
+                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                     </button>
+                </div>
             </div>
 
-            <div class="at-risk-merchants-section" id="widget-at-risk">
-                <div class="at-risk-merchants-header">
-                    <h2 class="text-gray-800 font-bold" style="font-size:1.0em;">At-Risk Accounts</h2>
-                    <span class="merchants-badge">4 accounts</span>
-                </div>
-                <div class="at-risk-merchants-grid">
-                    <div class="at-risk-card">
-                        <div class="at-risk-merchant-avatar">AC</div>
-                        <div class="at-risk-content">
-                            <div class="at-risk-name-row">
-                                <span class="at-risk-merchant-name">Alpha Corp</span>
-                                <div class="at-risk-health-score-circle">58</div>
-                            </div>
-                            <span class="at-risk-sub-info">-5.2% Engagement</span>
-                            
-                            <div class="at-risk-description">Risk Factors:</div>
-                            <ul class="risk-factors-list">
-                                <li>Low CRM feature adoption (SalesIQ, Campaigns)</li>
-                                <li>No recent support interactions (passive churn risk)</li>
-                            </ul>
-                            <button class="schedule-button">Initiate Engagement</button>
-                        </div>
+            <div class="at-risk-merchants-section" id="widget-at-risk" style="padding: 0; overflow: hidden;">
+    
+                <div class="card-header">
+                    <div class="header-title">
+                        <h2>At-Risk Accounts</h2>
                     </div>
-
-                    <div class="at-risk-card">
-                        <div class="at-risk-merchant-avatar">BS</div>
-                        <div class="at-risk-content">
-                            <div class="at-risk-name-row">
-                                <span class="at-risk-merchant-name">Beta Solutions</span>
-                                <div class="at-risk-health-score-circle">34</div>
-                            </div>
-                            <span class="at-risk-sub-info">-2.1% Payment Rate</span>
-
-                            <div class="at-risk-description">Risk Factors:</div>
-                            <ul class="risk-factors-list">
-                                <li>2 invoices overdue by 30+ days in Zoho Books</li>
-                                <li>Unresolved integration errors with external payment gateway</li>
-                            </ul>
-                            <button class="schedule-button">Follow-up on Payments</button>
-                        </div>
-                    </div>
+                    <div class="badge-pending">Loading...</div>
                 </div>
-                <a href="#" class="view-all-link">View All At-Risk Accounts</a>
+                
+                <div class="action-list" id="atRiskGrid"></div>
+            
+                <div class="card-footer-view">
+                     <button class="view-all-btn">
+                         View All At-Risk Accounts 
+                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                     </button>
+                </div>
             </div>
         </div>
     </div>
@@ -1316,5 +1324,7 @@ The Account Team</textarea>
     <script src="walletCredits.js"></script>
     <script src="deskOverview.js"></script>
     <script src="widgetConfig.js"></script>
+    <script src="growthWidget.js"></script>
+    <script src="atRiskWidget.js"></script>
 </body>
 </html>

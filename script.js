@@ -89,11 +89,6 @@ const arrTrendData = {
     "12months": { labels: ['Aug\'24', 'Sep\'24', 'Oct\'24', 'Nov\'24', 'Dec\'24', 'Jan\'25', 'Feb\'25', 'Mar\'25', 'Apr\'25', 'May\'25', 'Jun\'25', 'Jul\'25'], currentYear: [45, 48, 50, 55, 60, 25, 28, 31, 35, 42, 50, 52], previousYear: [40, 42, 45, 48, 50, 20, 23, 26, 29, 33, 38, 40] },
     "ytd": { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'], currentYear: [25, 28, 31, 35, 42, 50, 52, 55], previousYear: [20, 23, 26, 29, 33, 38, 40, 45] }
 };
-
-// Growth Opportunities Data
-const upsellOpportunitiesData = [ { title: 'CRM Advanced Feature Upsell', description: 'Offer advanced CRM features like SalesIQ and workflow automation.', clients: 20, totalClients: 50, revenue: 150000 }, { title: 'Zoho One Suite Upgrade', description: 'Propose Zoho One to 10 clients currently using 3+ apps.', clients: 10, totalClients: 50, revenue: 250000 }, { title: 'Analytics Premium Plan', description: 'Target 15 clients for an upgrade to Zoho Analytics Premium.', clients: 15, totalClients: 50, revenue: 80000 } ];
-const crossSellOpportunitiesData = [ { title: 'Zoho Desk for Support Teams', description: 'Introduce Zoho Desk to 18 clients who currently lack an integrated support system.', clients: 18, totalClients: 50, revenue: 120000 }, { title: 'Zoho Books for Accounting', description: 'Cross-sell Zoho Books to 12 clients using other accounting software.', clients: 12, totalClients: 50, revenue: 70000 }, { title: 'Zoho Campaigns Integration', description: 'Recommend Zoho Campaigns to 15 clients to enhance their marketing automation efforts.', clients: 15, totalClients: 50, revenue: 90000 } ];
-
 // ==========================================
 // 3. STATE VARIABLES & ELEMENTS
 // ==========================================
@@ -453,7 +448,7 @@ document.querySelectorAll('.merchant-table th[data-column]').forEach(header => {
 // 6. DASHBOARD CARDS & VISUALIZATIONS
 // ==========================================
 
-// --- Updated Account Summary Logic with Churn Flow ---
+// --- Account Summary Logic with Churn Flow ---
 function updateAccountSummary() {
     // 1. Base Numbers
     const totalAccounts = 5000; 
@@ -635,19 +630,6 @@ document.getElementById('analyzeChurnBtn').addEventListener('click', () => {
     churnAnalysisModal.classList.add('show-flex');
 });
 document.getElementById('closeChurnAnalysisModalBtn').addEventListener('click', () => churnAnalysisModal.classList.remove('show-flex'));
-// --- Growth Opportunities ---
-function updateGrowthOpportunitiesCard(type) {
-    const data = type === 'upsell' ? upsellOpportunitiesData : crossSellOpportunitiesData;
-    const grid = document.getElementById('opportunitiesGrid'); grid.innerHTML = '';
-    data.forEach(op => {
-        const pct = (op.clients / op.totalClients) * 100;
-        const div = document.createElement('div'); div.classList.add('opportunity-card');
-        div.innerHTML = `<div class="opportunity-content"><div class="opportunity-title">${op.title}</div><div class="opportunity-description">${op.description}</div><div class="opportunity-progress-bar-container"><div class="opportunity-progress-bar-fill" style="width: ${pct.toFixed(0)}%;"></div></div><div class="opportunity-stats"><span>${op.clients}/${op.totalClients} clients</span><span class="value">${formatArr(op.revenue)} opportunity</span></div></div>`;
-        grid.appendChild(div);
-    });
-    document.getElementById('growthOpportunitiesBadge').textContent = `${data.length} identified`;
-}
-growthOpportunityFilter.addEventListener('change', (e) => updateGrowthOpportunitiesCard(e.target.value));
 
 // --- Charts (GMV) ---
 
@@ -902,7 +884,6 @@ window.addEventListener('load', () => {
     updateUpsellCrossSellCard('month');
     renderGmvConversionChart();
     updateChurnCard('mtd');
-    updateGrowthOpportunitiesCard('upsell');
     updateAccountSummary();
     updateInactiveCount();
     updateHealthBarAndDetails(); 

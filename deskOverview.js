@@ -43,7 +43,7 @@ function initDeskDashboard(data) {
     // --- CHART RENDERING ---
     renderDeskChart(data.volumeTrend);
 
-    // --- DRIVERS RENDER (UPDATED LAYOUT) ---
+    // --- DRIVERS RENDER ---
     const driversHTML = data.topDrivers.map(d => `
         <div class="d-driver-row">
             <div class="d-driver-header-flex">
@@ -66,8 +66,6 @@ function renderDeskChart(trendData) {
     const w = 600; 
     const h = 130; // Reduced from 180
     const pad = { t: 10, r: 10, b: 20, l: 25 }; // Tighter padding
-    // ---------------------------------------------
-
     const uw = w - pad.l - pad.r; 
     const uh = h - pad.t - pad.b;
     
