@@ -1075,10 +1075,10 @@ body { /* Styles for the entire page body */
     display: none; /* Hidden by default */ 
     position: fixed; /* Stay in place */
     z-index: 1000; /* Sit on top */
-    left: 0; /* Align to left */
-    top: 0; /* Align to top */
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%; 
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     backdrop-filter: blur(3px); /* Optional: blur background */
 }
@@ -1089,7 +1089,7 @@ body { /* Styles for the entire page body */
 }
 .modal-content { /* Content area for modals */
     background-color: #fefefe; /* White background */
-    padding: 30px; /* Padding */
+    padding: -10px; /* Padding */
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 5px 20px rgba(0,0,0,0.2); /* Shadow */
     width: 80%; /* Adjusted for smaller size */
@@ -1097,7 +1097,7 @@ body { /* Styles for the entire page body */
     position: relative; /* For close button positioning */
     display: flex; /* Flexbox for internal layout */
     flex-direction: column; /* Stack content vertically */
-    gap: 20px; /* Gap between elements */
+    gap: -5px; /* Gap between elements */
     overflow: auto; /* Enable scroll if content overflows */
     max-height: 90vh; /* Limit height to prevent overflow on small screens */
 }
@@ -3710,7 +3710,7 @@ body { /* Styles for the entire page body */
 
 /* Footer */
 .renewal-footer {
-    background-color: #f8fafc;
+    background-color: #ffffff;
     padding: 12px 20px;
     border-top: 1px solid #f1f5f9;
     text-align: center;
@@ -4772,4 +4772,62 @@ body { /* Styles for the entire page body */
 }
 input:checked + .slider { background-color: #34c759; } /* Green for Active */
 input:checked + .slider:before { transform: translateX(18px); }
+/* --- Team Performance Modal Styles --- */
 
+.team-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.team-table th {
+    text-align: left;
+    font-size: 0.75em;
+    text-transform: uppercase;
+    color: #64748b; /* Text Secondary */
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e2e8f0;
+    font-weight: 600;
+}
+
+.team-table td {
+    padding: 18px 0;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+}
+
+.team-table tr:last-child td {
+    border-bottom: none;
+}
+
+.team-name {
+    font-weight: 600;
+    color: #1e293b; /* Text Primary */
+    font-size: 0.95em;
+}
+
+/* Compact Stat Pills for Smaller Modal */
+.stat-pill {
+    display: inline-block;
+    padding: 4px 10px; /* Reduced padding */
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.8em; /* Slightly smaller font */
+    min-width: 60px;
+    text-align: center;
+}
+
+.pill-target { 
+    background-color: #f8fafc; 
+    color: #64748b; 
+}
+
+.pill-renewed { 
+    background-color: #ecfdf5; 
+    color: #059669; 
+}
+
+.pill-cancelled { 
+    background-color: #fef2f2; 
+    color: #dc2626; 
+}

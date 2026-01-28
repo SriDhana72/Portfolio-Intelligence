@@ -140,3 +140,29 @@ if (widgetYearSelect) {
     // New listener for Year
     widgetYearSelect.addEventListener('change', updateRenewalWidget);
 }
+/* --- Team Performance Modal Logic --- */
+document.addEventListener('DOMContentLoaded', () => {
+    const reportModal = document.getElementById('teamPerformanceModal');
+    const openBtn = document.getElementById('viewRenewalReportBtn');
+    const closeX = document.getElementById('closeTeamModalBtn');
+
+    if (openBtn && reportModal) {
+        // Open
+        openBtn.addEventListener('click', () => {
+            reportModal.classList.add('show-flex');
+        });
+
+        // Close function
+        const closeModal = () => reportModal.classList.remove('show-flex');
+
+        // Only the X button closes it now
+        if (closeX) closeX.addEventListener('click', closeModal);
+
+        // Close on outside click
+        window.addEventListener('click', (e) => {
+            if (e.target === reportModal) {
+                closeModal();
+            }
+        });
+    }
+});

@@ -471,7 +471,7 @@
                 </div>
 
                 <div class="renewal-footer">
-                    <button class="view-report-btn">
+                    <button class="view-report-btn" id="viewRenewalReportBtn">
                         View Full Report <i class="ph-bold ph-arrow-right"></i>
                     </button>
                 </div>
@@ -1260,6 +1260,52 @@ The Account Team</textarea>
             <div class="modal-footer">
                 <button class="clear-all-btn" id="resetWidgetsBtn">Reset to Default</button>
                 <button class="apply-filters-btn" id="saveWidgetsBtn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+    <div id="teamPerformanceModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 520px;">
+            <div class="modal-header" style="padding: 15px 20px;">
+                <h2 style="font-size: 1.1em; margin:0;">Team Performance Breakdown</h2>
+                <span class="modal-close-btn" id="closeTeamModalBtn" style="font-size: 1.5em;">&times;</span>
+            </div>
+            <div class="modal-body" style="padding: 0 20px 20px 20px;">
+                <table class="team-table">
+                    <thead>
+                        <tr>
+                            <th>Team</th>
+                            <th style="text-align: center;">Target</th>
+                            <th style="text-align: center;">Renewed</th>
+                            <th style="text-align: center;">Cancelled</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><div class="team-name">AM Team</div></td>
+                            <td style="text-align: center;"><span class="stat-pill pill-target">$10M</span></td>
+                            <td style="text-align: center;"><span class="stat-pill pill-renewed">$8.5M</span></td>
+                            <td style="text-align: center;"><span class="stat-pill pill-cancelled">$1.5M</span></td>
+                        </tr>
+                        <tr>
+                            <td><div class="team-name">MM TEAM</div></td>
+                            <td style="text-align: center;"><span class="stat-pill pill-target">$8M</span></td>
+                            <td style="text-align: center;"><span class="stat-pill pill-renewed">$6.2M</span></td>
+                            <td style="text-align: center;"><span class="stat-pill pill-cancelled">$1.8M</span></td>
+                        </tr>
+                        <tr>
+                            <td><div class="team-name">PKAM</div></td>
+                            <td style="text-align: center;"><span class="stat-pill pill-target">$7M</span></td>
+                            <td style="text-align: center;"><span class="stat-pill pill-renewed">$6.8M</span></td>
+                            <td style="text-align: center;"><span class="stat-pill pill-cancelled">$0.2M</span></td>
+                        </tr>
+                        <tr>
+                            <td><div class="team-name">PAM</div></td>
+                            <td style="text-align: center;"><span class="stat-pill pill-target">$5M</span></td>
+                            <td style="text-align: center;"><span class="stat-pill pill-renewed">$3.5M</span></td>
+                            <td style="text-align: center;"><span class="stat-pill pill-cancelled">$0.6M</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
